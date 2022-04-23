@@ -1,0 +1,138 @@
+Module = ImportDeclaration
+  | ExportDeclaration
+  | StatementList ;
+
+ImportDeclaration = "import", ImportClause, "from", string, ";" ;
+
+ImportClause = 
+    Identifier
+  | NamedImport
+  | Identifier "," NamedImport ;  
+
+NamedImport = "*", "as", Identifier | Block ;
+
+ExportDeclaration = ? TODO ?;
+
+StatementList = ? TODO ?;
+
+Token =
+   Whitespace
+  | Line Terminator
+  | ? Comment ?
+  | Word
+  | Private Identifier
+  | String Literal
+  | Template Literal
+  | ? Regular Expression Literal ?
+  | ? Punctuation ? ;
+
+Bracketed = "[", { TokenTree }, "]" ;
+Block = "{" , { TokenTree }, "}" ;
+Parenthesized = "(", { TokenTree }, ")" ;
+
+TokenTree = Bracketed | Block | Parenthesized | Token;
+
+Word =
+    Identifier
+  | Number ;
+
+Private Identifier = "#", Identifier ;
+
+Punctuation = { PunctuationChar };
+
+PunctuationChar =
+    "."
+  | ";"
+  | ","
+  | "<"
+  | ">"
+  | "="
+  | "!"
+  | "+"
+  | "-"
+  | "*"
+  | "%"
+  | "&"
+  | "|"
+  | "^"
+  | "~"
+  | ":" ;
+
+Identifier = IdentifierStart, { IdentifierContinue } ;
+
+IdentifierStart = IdentifierStartChar | "\", UnicodeEscapeSequence ;
+
+IdentifierStartChar =
+    UnicodeIDStart
+  | "$"
+  | "_" ;
+
+IdentifierContinue = IdentifierContinueChar | "\", UnicodeEscapeSequence ;
+
+IdentifierContinueChar =
+    UnicodeIDContinue
+  | "$"
+  | ZWNJ
+  | ZWJ ;
+
+UnicodeIDStart = ? any Unicode code point with the Unicode property “ID_Start” ? ;
+
+UnicodeIDContinue = ? any Unicode code point with the Unicode property “ID_Continue” ? ;
+
+SourceCharacter = ? any unicode character ? ;
+
+Regular Expression Literal = ? regular expression literal ? ;
+(*
+  ECMA-262: https://tc39.es/ecma262/#prod-RegularExpressionLiteral
+*)
+
+String Literal = ? single or double-quoted string literal ? ;
+(*
+  ECMA-262: https://tc39.es/ecma262/#prod-StringLiteral
+*)
+
+Template Literal = ? a JavaScript template literal ? ;
+(*
+  ECMA-262: https://tc39.es/ecma262/#prod-StringLiteral
+*)
+
+Number = ? NumericLiteral ? ;
+(*
+  ECMA-262: https://tc39.es/ecma262/#prod-NumericLiteral
+*)
+
+Whitespace =
+    ? U+0009 CHARACTER TABULATION (TAB) ? 
+  | ? U+000B LINE TABULATION (VT) ?
+  | ? U+000C FORM FEED (FF) ?
+  | ? U+FEFF ZERO WIDTH NO-BREAK SPACE (ZWNBSP) ?
+  | ? "Category Zs" Any Unicode "Space_Separator code point" (USP) ? ;
+(*
+  ECMA-262: https://tc39.es/ecma262/#prod-WhiteSpace
+
+  > Other than for the code points listed in Table 38, ECMAScript WhiteSpace intentionally excludes all code points that have the Unicode “White_Space” property but which are not classified in category “Space_Separator” (“Zs”).
+*)
+
+Line Terminator =
+    ? U+000A LINE FEED (LF) ?
+  | ? U+000D CARRIAGE RETURN (CR) ?
+  | ? U+2028 LINE SEPARATOR (LS) ?
+  | ? U+2029 PARAGRAPH SEPARATOR (PS) ? ;
+(* ECMA-262: https://tc39.es/ecma262/#sec-line-terminators *)
+
+ZWNJ = ? U+200C ZERO WIDTH NON-JOINER ? ;
+ZWJ = ? U+200D ZERO WIDTH JOINER ? ;
+
+UnicodeEscapeSequence =
+    "u", HexDigit, HexDigit, HexDigit, HexDigit
+  | "u{", CodePoint, "}" ;
+
+CodePoint = ? HexDigits[~Sep] but only if MV of HexDigits ≤ 0x10FFFF ? ;
+(*
+  ECMA-262: https://tc39.es/ecma262/#prod-CodePoint
+*)
+
+HexDigit = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "A" | "B" | "C" | "D" | "E" | "F" | "a" | "b" | "c" | "d" | "e" | "f" ;
+(*
+  ECMA-262: https://tc39.es/ecma262/#prod-HexDigit
+*)

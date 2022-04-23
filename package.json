@@ -1,0 +1,10 @@
+{
+  "private": true,
+  "scripts": {
+    "build": "mdbook build --dest-dir=docs",
+    "serve": "mdbook serve --dest-dir=docs"
+  },
+  "devDependencies": {
+    "ebnf2railroad": "^1.13.0"
+  }
+}

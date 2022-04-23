@@ -1,0 +1,15 @@
+Template = "<template", [Attrs], ">", Body, "</template>";
+
+Attr = Whitespace, Name, "=", Value;
+
+Attrs = { Attr };
+
+Name = { letter } ;
+Value = 
+    '"', { letter - '"' }, '"'
+  | "'", { letter - "'" }, "'"
+  | "{", Identifier, "}" ;
+
+
+
+WhiteSpace = ? todo ? ;

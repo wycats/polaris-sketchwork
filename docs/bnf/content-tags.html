@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <meta name="generator" content="ebnf2railroad" />
+  <title>/home/wycats/Code/Polaris/design-sketches/./src/bnf/content-tags</title>
+  <style type="text/css">
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+:root {
+    --subtleText: #777;
+    --highlightText: hotpink;
+    --itemHeadingBackground: #eee;
+    --background: white;
+    --borderColor: #ccc;
+    --textColor: #111;
+
+    --diagramBackground: #f8f8f8;
+    --diagramLines: black;
+    --diagramText: black;
+    --terminalLines: black;
+    --terminalFill: #feffdf;
+    --nonTerminalLines: black;
+    --nonTerminalFill: #feffdf;
+    --specialSequenceLines: black;
+    --specialSequenceFill: #ffe79a;
+
+    --ebnfCodeBackground: #e8e8e8;
+    --ebnfIdentifier: #ef5a5a;
+    --ebnfTerminal: #ffa952;
+    --ebnfBaseColor: #777;
+}
+
+.theme-dark {
+    --subtleText: #777;
+    --highlightText: hotpink;
+    --itemHeadingBackground: #444;
+    --background: #333;
+    --borderColor: lightblue;
+    --textColor: #ddd;
+
+    --diagramBackground: #222;
+    --diagramLines: #3e432e;
+    --diagramText: #a7d129;
+    --terminalLines: #a7d129;
+    --terminalFill: #3e432e;
+    --nonTerminalLines: #a7d129;
+    --nonTerminalFill: #3e432e;
+    --specialSequenceLines: #a7d129;
+    --specialSequenceFill: #444;
+
+    --ebnfCodeBackground: #3e432e;
+    --ebnfIdentifier: lightblue;
+    --ebnfTerminal: #a7d129;
+    --ebnfBaseColor: #ddd;
+}
+
+html {
+    font-family: sans-serif;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--background);
+    color: var(--textColor);
+}
+
+a {
+    color: inherit;
+}
+
+a:visited {
+    color: var(--subtleText);
+}
+
+a:active, a:focus, a:hover {
+    color: var(--highlightText);
+}
+
+header {
+    border-bottom: 1px solid var(--borderColor);
+    padding: 1rem;
+}
+
+header button {
+  display: none;
+}
+
+main {
+    overflow: hidden;
+    margin-left: 300px;
+}
+
+nav {
+    position: sticky;
+    top: 0;
+    max-height: 100vh;
+    padding: 1rem 2rem 1rem 1rem;
+    z-index: 5;
+    background: var(--background);
+    width: 300px;
+    float: left;
+    overflow: auto;
+}
+
+nav h3 {
+    white-space: nowrap;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+nav a {
+    display: inline-block;
+    color: var(--subtleText);
+    text-decoration: none;
+    padding: 0.33rem 0;
+}
+
+article {
+    width: 100%;
+    overflow: hidden;
+    padding: 1rem 2rem;
+    border-left: 1px solid var(--borderColor);
+}
+
+article + footer {
+    padding: 1rem 2rem;
+    border-left: 1px solid var(--borderColor);
+    background: var(--itemHeadingBackground);
+}
+
+code {
+    width: 100%;
+}
+
+pre {
+    overflow: auto;
+}
+
+pre > code {
+    display: block;
+    padding: 1em;
+    background: var(--diagramBackground);
+}
+
+h4 {
+    padding: 2rem;
+    margin: 4rem -2rem 1rem -2rem;
+    background: var(--itemHeadingBackground);
+    font-size: 125%;
+}
+
+blockquote {
+    margin-left: 0;
+    margin-top: calc(1em - 1px);
+    margin-bottom: calc(1em - 1px);
+    padding: 1px 0 1px 1rem;
+    border-left: 1rem solid var(--ebnfCodeBackground);
+}
+
+dfn {
+    font-style: normal;
+    cursor: default;
+}
+
+.diagram-container {
+    background: var(--diagramBackground);
+    margin-bottom: 0.25rem;
+    padding: 1rem 0;
+    display: flex;
+    justify-content: center;
+    overflow: auto;
+}
+
+/* Responsiveness */
+@media (max-width: 800px) {
+  body {
+    overflow-x: hidden;
+  }
+
+  header {
+    padding: 0.5rem 1rem;
+    display: flex;
+  }
+
+  header h1 {
+    margin: 0 auto 0 0;
+    display: flex;
+    align-items: center;
+  }
+
+  header button {
+    display: initial;
+    position: relative;
+    z-index: 10;
+  }
+
+  header button::after {
+    content: '☰';
+    margin-left: auto;
+    font-size: 1.5rem;
+  }
+
+  main {
+    display: block;
+    position: relative;
+    margin-left: 0;
+  }
+
+  nav {
+    height: auto;
+    display: block;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s, transform 0.2s;
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translateX(300px);
+    padding-top: 3rem;
+    background: var(--background);
+    box-shadow: 0 0 0 1000000rem rgba(0, 0, 0, 0.35);
+  }
+
+  .menu-open nav {
+    pointer-events: auto;
+    opacity: 1;
+    transform: translateX(0px);
+  }
+
+  nav a {
+    padding: 0.66rem 0;
+  }
+
+  article {
+    margin-left: 0;
+    border-left: 0;
+    padding: 1rem;
+  }
+  article + footer {
+    padding: 1rem;
+    border-left: 0;
+  }
+}
+
+/* EBNF text representation styling */
+code.ebnf {
+  padding: 1em;
+  background: var(--ebnfCodeBackground);
+  font-weight: bold;
+  color: var(--ebnfBaseColor);
+  white-space: pre-wrap;
+  display: inline-block;
+  width: 100%;
+}
+.ebnf-identifier {
+  color: var(--ebnfIdentifier);
+}
+.ebnf-terminal {
+  color: var(--ebnfTerminal);
+}
+.ebnf-non-terminal {
+  font-weight: normal;
+}
+.ebnf-comment {
+  font-weight: normal;
+  font-style: italic;
+  color: #999;
+}
+
+/* EBNF diagram representation styling */
+svg.railroad-diagram {
+  width: 100%;
+}
+svg.railroad-diagram path {
+  stroke-width: 3;
+  stroke: var(--diagramLines);
+  fill: rgba(0,0,0,0);
+}
+svg.railroad-diagram text {
+  font: bold 14px monospace;
+  text-anchor: middle;
+  fill: var(--diagramText);
+}
+svg.railroad-diagram text.diagram-text {
+  font-size: 12px;
+}
+svg.railroad-diagram text.diagram-arrow {
+  font-size: 16px;
+}
+svg.railroad-diagram text.label {
+  text-anchor: start;
+}
+svg.railroad-diagram text.comment {
+  font: italic 12px monospace;
+}
+svg.railroad-diagram g.non-terminal text {
+  /*font-style: italic;*/
+}
+svg.railroad-diagram g.special-sequence rect {
+  fill: var(--specialSequenceFill);
+  stroke: var(--specialSequenceLines);
+}
+svg.railroad-diagram g.special-sequence text {
+  font-style: italic;
+}
+svg.railroad-diagram rect {
+  stroke-width: 3;
+}
+svg.railroad-diagram rect.group-box {
+  stroke: gray;
+  stroke-dasharray: 10 5;
+  fill: none;
+}
+svg.railroad-diagram g.non-terminal rect {
+  fill: var(--nonTerminalFill);
+  stroke: var(--nonTerminalLines);
+}
+svg.railroad-diagram g.terminal rect {
+  fill: var(--terminalFill);
+  stroke: var(--terminalLines);
+}
+svg.railroad-diagram path.diagram-text {
+  stroke-width: 3;
+  stroke: black;
+  fill: white;
+  cursor: help;
+}
+svg.railroad-diagram g.diagram-text:hover path.diagram-text {
+  fill: #eee;
+}
+</style>
+</head>
+<body>
+
+  <script type="text/javascript">
+    const htmlTag = document.getElementsByTagName("html")[0];
+    const options = (document.location.search || "")
+      .slice(1)
+      .split("&")
+      .map(kv => kv.split("="))
+      .reduce((acc, [key, value]) => ({ ...acc, [key]: value }), {});
+
+    if (options["theme"]) {
+      htmlTag.classList.add("theme-" + options["theme"]);
+    }
+  </script>
+  <header>
+    <h1>/home/wycats/Code/Polaris/design-sketches/./src/bnf/content-tags</h1>
+    <button type="button"></button>
+  </header>
+  <nav>
+    
+    <h3>Root elements:</h3>
+    <ul class="nav-alphabetical">
+    <li class="root-node"><a href="#Bracketed">Bracketed</a>
+        <dfn title="recursive">♺</dfn>
+        
+      </li><li class="root-node"><a href="#Module">Module</a>
+        
+        
+      </li><li class="root-node"><a href="#Punctuation">Punctuation</a>
+        
+        
+      </li><li class="root-node"><a href="#Regular-Expression-Literal">Regular Expression Literal</a>
+        
+        
+      </li><li class="root-node"><a href="#SourceCharacter">SourceCharacter</a>
+        
+        
+      </li>
+    </ul>
+    
+    
+    <h3>Quick navigation:</h3>
+    <ul class="nav-alphabetical">
+    <li><a href="#Block">Block</a>
+        
+        
+      </li><li><a href="#ExportDeclaration">ExportDeclaration</a>
+        
+        
+      </li><li><a href="#ImportDeclaration">ImportDeclaration</a>
+        
+        
+      </li><li><a href="#Line-Terminator">Line Terminator</a>
+        
+        
+      </li><li><a href="#Number">Number</a>
+        
+        
+      </li><li><a href="#Parenthesized">Parenthesized</a>
+        
+        
+      </li><li><a href="#Private-Identifier">Private Identifier</a>
+        
+        
+      </li><li><a href="#StatementList">StatementList</a>
+        
+        
+      </li><li><a href="#String-Literal">String Literal</a>
+        
+        
+      </li><li><a href="#Template-Literal">Template Literal</a>
+        
+        
+      </li><li><a href="#Token">Token</a>
+        
+        
+      </li><li><a href="#Whitespace">Whitespace</a>
+        
+        
+      </li><li><a href="#Word">Word</a>
+        
+        
+      </li>
+    </ul>
+    
+    
+    <h3>Common elements:</h3>
+    <ul class="nav-alphabetical">
+    <li class="common-node"><a href="#CodePoint">CodePoint</a>
+        
+        
+      </li><li class="common-node"><a href="#Identifier">Identifier</a>
+        
+        
+      </li><li class="common-node"><a href="#IdentifierContinue">IdentifierContinue</a>
+        
+        
+      </li><li class="common-node"><a href="#IdentifierContinueChar">IdentifierContinueChar</a>
+        
+        
+      </li><li class="common-node"><a href="#IdentifierStart">IdentifierStart</a>
+        
+        
+      </li><li class="common-node"><a href="#IdentifierStartChar">IdentifierStartChar</a>
+        
+        
+      </li><li class="common-node"><a href="#TokenTree">TokenTree</a>
+        <dfn title="recursive">♺</dfn>
+        
+      </li><li class="common-node"><a href="#UnicodeEscapeSequence">UnicodeEscapeSequence</a>
+        
+        
+      </li><li class="common-node"><a href="#UnicodeIDContinue">UnicodeIDContinue</a>
+        
+        
+      </li><li class="common-node"><a href="#UnicodeIDStart">UnicodeIDStart</a>
+        
+        
+      </li><li class="common-node"><a href="#ZWJ">ZWJ</a>
+        
+        
+      </li><li class="common-node"><a href="#ZWNJ">ZWNJ</a>
+        
+        
+      </li>
+    </ul>
+    
+    
+    <h3>Character sets:</h3>
+    <ul class="nav-alphabetical">
+    <li class="common-node"><a href="#HexDigit">HexDigit</a>
+        
+        
+      </li><li><a href="#PunctuationChar">PunctuationChar</a>
+        
+        
+      </li>
+    </ul>
+    
+  </nav>
+  <main>
+  <article>
+    <section>
+  <h4 id="Module">Module</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="566.5" style="max-height: 236px;" viewBox="0 0 566.5 236"><g transform="translate(.5 .5)"><g><path d="M20 51v20m0 -10h20"></path></g><g><path d="M40 61h0"></path><path d="M526.5 61h0"></path><path d="M40 61h20"></path><g><path d="M60 61h0"></path><path d="M506.5 61h0"></path><rect x="60" y="42" width="446.5" height="38" rx="10" ry="10" class="group-box"></rect><g><path d="M60 61h10"></path><path d="M496.5 61h10"></path><g class="terminal"><path d="M70 61h0"></path><path d="M141 61h0"></path><rect x="70" y="50" width="71" height="22" rx="10" ry="10"></rect><text x="105.5" y="65">import</text></g><path d="M141 61h10"></path><path d="M151 61h10"></path><g class="non-terminal"><path d="M161 61h0"></path><path d="M283 61h0"></path><rect x="161" y="50" width="122" height="22"></rect><a xlink:href="#ImportClause"><text x="222" y="65">ImportClause</text></a></g><path d="M283 61h10"></path><path d="M293 61h10"></path><g class="terminal"><path d="M303 61h0"></path><path d="M357 61h0"></path><rect x="303" y="50" width="54" height="22" rx="10" ry="10"></rect><text x="330" y="65">from</text></g><path d="M357 61h10"></path><path d="M367 61h10"></path><g class="non-terminal"><path d="M377 61h0"></path><path d="M448 61h0"></path><rect x="377" y="50" width="71" height="22"></rect><a xlink:href="#string"><text x="412.5" y="65">string</text></a></g><path d="M448 61h10"></path><path d="M458 61h10"></path><g class="terminal"><path d="M468 61h0"></path><path d="M496.5 61h0"></path><rect x="468" y="50" width="28.5" height="22" rx="10" ry="10"></rect><text x="482.25" y="65">;</text></g></g><g><path d="M60 31h0"></path><path d="M189 31h0"></path><a xlink:href="#ImportDeclaration"><text x="124.5" y="36" class="comment">ImportDeclaration</text></a></g></g><path d="M506.5 61h20"></path><path d="M40 61a10 10 0 0 1 10 10v48a10 10 0 0 0 10 10"></path><g><path d="M60 129h158.75"></path><path d="M347.75 129h158.75"></path><rect x="218.75" y="110" width="129" height="38" rx="10" ry="10" class="group-box"></rect><g class="special-sequence"><path d="M218.75 129h29"></path><path d="M318.75 129h29"></path><rect x="247.75" y="118" width="71" height="22"></rect><text x="283.25" y="133"> TODO </text></g><g><path d="M218.75 99h0"></path><path d="M347.75 99h0"></path><a xlink:href="#ExportDeclaration"><text x="283.25" y="104" class="comment">ExportDeclaration</text></a></g></g><path d="M506.5 129a10 10 0 0 0 10 -10v-48a10 10 0 0 1 10 -10"></path><path d="M40 61a10 10 0 0 1 10 10v116a10 10 0 0 0 10 10"></path><g><path d="M60 197h172.75"></path><path d="M333.75 197h172.75"></path><rect x="232.75" y="178" width="101" height="38" rx="10" ry="10" class="group-box"></rect><g class="special-sequence"><path d="M232.75 197h15"></path><path d="M318.75 197h15"></path><rect x="247.75" y="186" width="71" height="22"></rect><text x="283.25" y="201"> TODO </text></g><g><path d="M232.75 167h0"></path><path d="M333.75 167h0"></path><a xlink:href="#StatementList"><text x="283.25" y="172" class="comment">StatementList</text></a></g></g><path d="M506.5 197a10 10 0 0 0 10 -10v-116a10 10 0 0 1 10 -10"></path></g><path d="M 526.5 61 h 20 m 0 -10 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">Module</span>
+  = <a class="ebnf-non-terminal" href="#ImportDeclaration">ImportDeclaration</a>
+  | <a class="ebnf-non-terminal" href="#ExportDeclaration">ExportDeclaration</a>
+  | <a class="ebnf-non-terminal" href="#StatementList">StatementList</a>
+  <span class="ebnf-end">;</span></code>
+  <p><strong>Module</strong> is referencing:<p>
+<ul>
+<li><a href="#ImportDeclaration">ImportDeclaration</a></li><li><a href="#ExportDeclaration">ExportDeclaration</a></li><li><a href="#StatementList">StatementList</a></li>
+</ul>
+</section>
+<section>
+  <h4 id="ImportDeclaration">ImportDeclaration</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="526.5" style="max-height: 62px;" viewBox="0 0 526.5 62"><g transform="translate(.5 .5)"><g><path d="M20 21v20m0 -10h20"></path></g><path d="M40 31h10"></path><g><path d="M50 31h0"></path><path d="M476.5 31h0"></path><g class="terminal"><path d="M50 31h0"></path><path d="M121 31h0"></path><rect x="50" y="20" width="71" height="22" rx="10" ry="10"></rect><text x="85.5" y="35">import</text></g><path d="M121 31h10"></path><path d="M131 31h10"></path><g class="non-terminal"><path d="M141 31h0"></path><path d="M263 31h0"></path><rect x="141" y="20" width="122" height="22"></rect><a xlink:href="#ImportClause"><text x="202" y="35">ImportClause</text></a></g><path d="M263 31h10"></path><path d="M273 31h10"></path><g class="terminal"><path d="M283 31h0"></path><path d="M337 31h0"></path><rect x="283" y="20" width="54" height="22" rx="10" ry="10"></rect><text x="310" y="35">from</text></g><path d="M337 31h10"></path><path d="M347 31h10"></path><g class="non-terminal"><path d="M357 31h0"></path><path d="M428 31h0"></path><rect x="357" y="20" width="71" height="22"></rect><a xlink:href="#string"><text x="392.5" y="35">string</text></a></g><path d="M428 31h10"></path><path d="M438 31h10"></path><g class="terminal"><path d="M448 31h0"></path><path d="M476.5 31h0"></path><rect x="448" y="20" width="28.5" height="22" rx="10" ry="10"></rect><text x="462.25" y="35">;</text></g></g><path d="M476.5 31h10"></path><path d="M 486.5 31 h 20 m 0 -10 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">ImportDeclaration</span> = <span class="ebnf-terminal">"import"</span> , <a class="ebnf-non-terminal" href="#ImportClause">ImportClause</a> , <span class="ebnf-terminal">"from"</span> ,
+  <a class="ebnf-non-terminal" href="#string">string</a> , <span class="ebnf-terminal">";"</span> <span class="ebnf-end">;</span></code>
+  <p>Items referencing <strong>ImportDeclaration</strong>:<p>
+<ul>
+<li><a href="#Module">Module</a></li>
+</ul>
+  <p><strong>ImportDeclaration</strong> is referencing:<p>
+<ul>
+<li><a href="#ImportClause">ImportClause</a></li><li><a href="#string">string</a></li>
+</ul>
+</section>
+<section>
+  <h4 id="ExportDeclaration">ExportDeclaration</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="171" style="max-height: 62px;" viewBox="0 0 171 62"><g transform="translate(.5 .5)"><g><path d="M20 21v20m10 -20v20m-10 -10h20"></path></g><path d="M40 31h10"></path><g class="special-sequence"><path d="M50 31h0"></path><path d="M121 31h0"></path><rect x="50" y="20" width="71" height="22"></rect><text x="85.5" y="35"> TODO </text></g><path d="M121 31h10"></path><path d="M 131 31 h 20 m -10 -10 v 20 m 10 -20 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">ExportDeclaration</span> = <span class="ebnf-special-sequence">? TODO ?</span> <span class="ebnf-end">;</span></code>
+  <p>Items referencing <strong>ExportDeclaration</strong>:<p>
+<ul>
+<li><a href="#Module">Module</a></li>
+</ul>
+</section>
+<section>
+  <h4 id="StatementList">StatementList</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="171" style="max-height: 62px;" viewBox="0 0 171 62"><g transform="translate(.5 .5)"><g><path d="M20 21v20m10 -20v20m-10 -10h20"></path></g><path d="M40 31h10"></path><g class="special-sequence"><path d="M50 31h0"></path><path d="M121 31h0"></path><rect x="50" y="20" width="71" height="22"></rect><text x="85.5" y="35"> TODO </text></g><path d="M121 31h10"></path><path d="M 131 31 h 20 m -10 -10 v 20 m 10 -20 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">StatementList</span> = <span class="ebnf-special-sequence">? TODO ?</span> <span class="ebnf-end">;</span></code>
+  <p>Items referencing <strong>StatementList</strong>:<p>
+<ul>
+<li><a href="#Module">Module</a></li>
+</ul>
+</section>
+<section>
+  <h4 id="Token">Token</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="378" style="max-height: 302px;" viewBox="0 0 378 302"><g transform="translate(.5 .5)"><g><path d="M20 21v20m0 -10h20"></path></g><g><path d="M40 31h0"></path><path d="M338 31h0"></path><path d="M40 31h20"></path><g class="non-terminal"><path d="M60 31h76.5"></path><path d="M241.5 31h76.5"></path><rect x="136.5" y="20" width="105" height="22"></rect><a xlink:href="#Whitespace"><text x="189" y="35">Whitespace</text></a></g><path d="M318 31h20"></path><path d="M40 31a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path><g class="non-terminal"><path d="M60 61h55.25"></path><path d="M262.75 61h55.25"></path><rect x="115.25" y="50" width="147.5" height="22"></rect><a xlink:href="#Line-Terminator"><text x="189" y="65">Line Terminator</text></a></g><path d="M318 61a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path><path d="M40 31a10 10 0 0 1 10 10v40a10 10 0 0 0 10 10"></path><g class="special-sequence"><path d="M60 91h80.75"></path><path d="M237.25 91h80.75"></path><rect x="140.75" y="80" width="96.5" height="22"></rect><text x="189" y="95"> Comment </text></g><path d="M318 91a10 10 0 0 0 10 -10v-40a10 10 0 0 1 10 -10"></path><path d="M40 31a10 10 0 0 1 10 10v70a10 10 0 0 0 10 10"></path><g class="non-terminal"><path d="M60 121h102"></path><path d="M216 121h102"></path><rect x="162" y="110" width="54" height="22"></rect><a xlink:href="#Word"><text x="189" y="125">Word</text></a></g><path d="M318 121a10 10 0 0 0 10 -10v-70a10 10 0 0 1 10 -10"></path><path d="M40 31a10 10 0 0 1 10 10v100a10 10 0 0 0 10 10"></path><g class="non-terminal"><path d="M60 151h42.5"></path><path d="M275.5 151h42.5"></path><rect x="102.5" y="140" width="173" height="22"></rect><a xlink:href="#Private-Identifier"><text x="189" y="155">Private Identifier</text></a></g><path d="M318 151a10 10 0 0 0 10 -10v-100a10 10 0 0 1 10 -10"></path><path d="M40 31a10 10 0 0 1 10 10v130a10 10 0 0 0 10 10"></path><g class="non-terminal"><path d="M60 181h59.5"></path><path d="M258.5 181h59.5"></path><rect x="119.5" y="170" width="139" height="22"></rect><a xlink:href="#String-Literal"><text x="189" y="185">String Literal</text></a></g><path d="M318 181a10 10 0 0 0 10 -10v-130a10 10 0 0 1 10 -10"></path><path d="M40 31a10 10 0 0 1 10 10v160a10 10 0 0 0 10 10"></path><g class="non-terminal"><path d="M60 211h51"></path><path d="M267 211h51"></path><rect x="111" y="200" width="156" height="22"></rect><a xlink:href="#Template-Literal"><text x="189" y="215">Template Literal</text></a></g><path d="M318 211a10 10 0 0 0 10 -10v-160a10 10 0 0 1 10 -10"></path><path d="M40 31a10 10 0 0 1 10 10v190a10 10 0 0 0 10 10"></path><g class="special-sequence"><path d="M60 241h0"></path><path d="M318 241h0"></path><rect x="60" y="230" width="258" height="22"></rect><text x="189" y="245"> Regular Expression Literal </text></g><path d="M318 241a10 10 0 0 0 10 -10v-190a10 10 0 0 1 10 -10"></path><path d="M40 31a10 10 0 0 1 10 10v220a10 10 0 0 0 10 10"></path><g class="special-sequence"><path d="M60 271h63.75"></path><path d="M254.25 271h63.75"></path><rect x="123.75" y="260" width="130.5" height="22"></rect><text x="189" y="275"> Punctuation </text></g><path d="M318 271a10 10 0 0 0 10 -10v-220a10 10 0 0 1 10 -10"></path></g><path d="M 338 31 h 20 m 0 -10 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">Token</span>
+  = <a class="ebnf-non-terminal" href="#Whitespace">Whitespace</a>         | <a class="ebnf-non-terminal" href="#Line-Terminator">Line Terminator</a>
+  | <span class="ebnf-special-sequence">? Comment ?</span>        | <a class="ebnf-non-terminal" href="#Word">Word</a>
+  | <a class="ebnf-non-terminal" href="#Private-Identifier">Private Identifier</a> | <a class="ebnf-non-terminal" href="#String-Literal">String Literal</a>
+  | <a class="ebnf-non-terminal" href="#Template-Literal">Template Literal</a>   | <span class="ebnf-special-sequence">? Regular Expression Literal ?</span>
+  | <span class="ebnf-special-sequence">? Punctuation ?</span>
+  <span class="ebnf-end">;</span></code>
+  <p>Items referencing <strong>Token</strong>:<p>
+<ul>
+<li><a href="#TokenTree">TokenTree</a></li>
+</ul>
+  <p><strong>Token</strong> is referencing:<p>
+<ul>
+<li><a href="#Whitespace">Whitespace</a></li><li><a href="#Line-Terminator">Line Terminator</a></li><li><a href="#Word">Word</a></li><li><a href="#Private-Identifier">Private Identifier</a></li><li><a href="#String-Literal">String Literal</a></li><li><a href="#Template-Literal">Template Literal</a></li>
+</ul>
+</section>
+<section>
+  <h4 id="Bracketed">Bracketed</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="1227" style="max-height: 1870px;" viewBox="0 0 1227 1870"><g transform="translate(.5 .5)"><g><path d="M20 98v20m0 -10h20"></path></g><path d="M40 108h10"></path><g><path d="M50 108h0"></path><g><path d="M50 108h10"></path><path d="M1167 108h10"></path><g class="terminal"><path d="M60 108h0"></path><path d="M88.5 108h0"></path><rect x="60" y="97" width="28.5" height="22" rx="10" ry="10"></rect><text x="74.25" y="112">&#91;</text></g><path d="M88.5 108h10"></path><g><path d="M98.5 108h0"></path><path d="M1128.5 108h0"></path><path d="M98.5 108a10 10 0 0 0 10 -10v-68a10 10 0 0 1 10 -10"></path><g><path d="M118.5 20h990"></path></g><path d="M1108.5 20a10 10 0 0 1 10 10v68a10 10 0 0 0 10 10"></path><path d="M98.5 108h20"></path><g><path d="M118.5 108h0"></path><path d="M1108.5 108h0"></path><path d="M118.5 108h10"></path><g><path d="M128.5 108h0"></path><path d="M1098.5 108h0"></path><rect x="128.5" y="50" width="970" height="1792" rx="10" ry="10" class="group-box"></rect><g><path d="M128.5 108h0"></path><path d="M1098.5 108h0"></path><path d="M128.5 108h20"></path><g><path d="M148.5 108h338.25"></path><path d="M740.25 108h338.25"></path><rect x="486.75" y="80" width="253.5" height="56" rx="10" ry="10" class="group-box"></rect><g><path d="M486.75 108h10"></path><path d="M730.25 108h10"></path><g class="terminal"><path d="M496.75 108h0"></path><path d="M525.25 108h0"></path><rect x="496.75" y="97" width="28.5" height="22" rx="10" ry="10"></rect><text x="511" y="112">&#91;</text></g><path d="M525.25 108h10"></path><g><path d="M535.25 108h0"></path><path d="M691.75 108h0"></path><path d="M535.25 108a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path><g><path d="M555.25 88h116.5"></path></g><path d="M671.75 88a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path><path d="M535.25 108h20"></path><g><path d="M555.25 108h0"></path><path d="M671.75 108h0"></path><path d="M555.25 108h10"></path><g class="non-terminal"><path d="M565.25 108h0"></path><path d="M661.75 108h0"></path><rect x="565.25" y="97" width="96.5" height="22"></rect><a xlink:href="#TokenTree"><text x="613.5" y="112">TokenTree</text></a></g><path d="M661.75 108h10"></path><path d="M565.25 108a10 10 0 0 0 -10 10v0a10 10 0 0 0 10 10"></path><g><path d="M565.25 128h96.5"></path></g><path d="M661.75 128a10 10 0 0 0 10 -10v0a10 10 0 0 0 -10 -10"></path></g><path d="M671.75 108h20"></path></g><path d="M691.75 108h10"></path><g class="terminal"><path d="M701.75 108h0"></path><path d="M730.25 108h0"></path><rect x="701.75" y="97" width="28.5" height="22" rx="10" ry="10"></rect><text x="716" y="112">&#93;</text></g></g><g><path d="M486.75 69h0"></path><path d="M559.75 69h0"></path><a xlink:href="#Bracketed"><text x="523.25" y="74" class="comment">Bracketed</text></a></g></g><path d="M1078.5 108h20"></path><path d="M128.5 108a10 10 0 0 1 10 10v66a10 10 0 0 0 10 10"></path><g><path d="M148.5 194h338.25"></path><path d="M740.25 194h338.25"></path><rect x="486.75" y="166" width="253.5" height="56" rx="10" ry="10" class="group-box"></rect><g><path d="M486.75 194h10"></path><path d="M730.25 194h10"></path><g class="terminal"><path d="M496.75 194h0"></path><path d="M525.25 194h0"></path><rect x="496.75" y="183" width="28.5" height="22" rx="10" ry="10"></rect><text x="511" y="198">{</text></g><path d="M525.25 194h10"></path><g><path d="M535.25 194h0"></path><path d="M691.75 194h0"></path><path d="M535.25 194a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path><g><path d="M555.25 174h116.5"></path></g><path d="M671.75 174a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path><path d="M535.25 194h20"></path><g><path d="M555.25 194h0"></path><path d="M671.75 194h0"></path><path d="M555.25 194h10"></path><g class="non-terminal"><path d="M565.25 194h0"></path><path d="M661.75 194h0"></path><rect x="565.25" y="183" width="96.5" height="22"></rect><a xlink:href="#TokenTree"><text x="613.5" y="198">TokenTree</text></a></g><path d="M661.75 194h10"></path><path d="M565.25 194a10 10 0 0 0 -10 10v0a10 10 0 0 0 10 10"></path><g><path d="M565.25 214h96.5"></path></g><path d="M661.75 214a10 10 0 0 0 10 -10v0a10 10 0 0 0 -10 -10"></path></g><path d="M671.75 194h20"></path></g><path d="M691.75 194h10"></path><g class="terminal"><path d="M701.75 194h0"></path><path d="M730.25 194h0"></path><rect x="701.75" y="183" width="28.5" height="22" rx="10" ry="10"></rect><text x="716" y="198">}</text></g></g><g><path d="M486.75 155h0"></path><path d="M531.75 155h0"></path><a xlink:href="#Block"><text x="509.25" y="160" class="comment">Block</text></a></g></g><path d="M1078.5 194a10 10 0 0 0 10 -10v-66a10 10 0 0 1 10 -10"></path><path d="M128.5 108a10 10 0 0 1 10 10v152a10 10 0 0 0 10 10"></path><g><path d="M148.5 280h338.25"></path><path d="M740.25 280h338.25"></path><rect x="486.75" y="252" width="253.5" height="56" rx="10" ry="10" class="group-box"></rect><g><path d="M486.75 280h10"></path><path d="M730.25 280h10"></path><g class="terminal"><path d="M496.75 280h0"></path><path d="M525.25 280h0"></path><rect x="496.75" y="269" width="28.5" height="22" rx="10" ry="10"></rect><text x="511" y="284">(</text></g><path d="M525.25 280h10"></path><g><path d="M535.25 280h0"></path><path d="M691.75 280h0"></path><path d="M535.25 280a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path><g><path d="M555.25 260h116.5"></path></g><path d="M671.75 260a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path><path d="M535.25 280h20"></path><g><path d="M555.25 280h0"></path><path d="M671.75 280h0"></path><path d="M555.25 280h10"></path><g class="non-terminal"><path d="M565.25 280h0"></path><path d="M661.75 280h0"></path><rect x="565.25" y="269" width="96.5" height="22"></rect><a xlink:href="#TokenTree"><text x="613.5" y="284">TokenTree</text></a></g><path d="M661.75 280h10"></path><path d="M565.25 280a10 10 0 0 0 -10 10v0a10 10 0 0 0 10 10"></path><g><path d="M565.25 300h96.5"></path></g><path d="M661.75 300a10 10 0 0 0 10 -10v0a10 10 0 0 0 -10 -10"></path></g><path d="M671.75 280h20"></path></g><path d="M691.75 280h10"></path><g class="terminal"><path d="M701.75 280h0"></path><path d="M730.25 280h0"></path><rect x="701.75" y="269" width="28.5" height="22" rx="10" ry="10"></rect><text x="716" y="284">)</text></g></g><g><path d="M486.75 241h0"></path><path d="M587.75 241h0"></path><a xlink:href="#Parenthesized"><text x="537.25" y="246" class="comment">Parenthesized</text></a></g></g><path d="M1078.5 280a10 10 0 0 0 10 -10v-152a10 10 0 0 1 10 -10"></path><path d="M128.5 108a10 10 0 0 1 10 10v259a10 10 0 0 0 10 10"></path><g><path d="M148.5 387h0"></path><path d="M1078.5 387h0"></path><rect x="148.5" y="338" width="930" height="1496" rx="10" ry="10" class="group-box"></rect><g><path d="M148.5 387h0"></path><path d="M1078.5 387h0"></path><path d="M148.5 387h20"></path><g><path d="M168.5 387h151.5"></path><path d="M907 387h151.5"></path><rect x="320" y="368" width="587" height="158" rx="10" ry="10" class="group-box"></rect><g><path d="M320 387h0"></path><path d="M907 387h0"></path><path d="M320 387h20"></path><g class="special-sequence"><path d="M340 387h114.75"></path><path d="M772.25 387h114.75"></path><rect x="454.75" y="376" width="317.5" height="22"></rect><text x="613.5" y="391"> U+0009 CHARACTER TABULATION (TAB) </text></g><path d="M887 387h20"></path><path d="M320 387a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path><g class="special-sequence"><path d="M340 417h140.25"></path><path d="M746.75 417h140.25"></path><rect x="480.25" y="406" width="266.5" height="22"></rect><text x="613.5" y="421"> U+000B LINE TABULATION (VT) </text></g><path d="M887 417a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path><path d="M320 387a10 10 0 0 1 10 10v40a10 10 0 0 0 10 10"></path><g class="special-sequence"><path d="M340 447h165.75"></path><path d="M721.25 447h165.75"></path><rect x="505.75" y="436" width="215.5" height="22"></rect><text x="613.5" y="451"> U+000C FORM FEED (FF) </text></g><path d="M887 447a10 10 0 0 0 10 -10v-40a10 10 0 0 1 10 -10"></path><path d="M320 387a10 10 0 0 1 10 10v70a10 10 0 0 0 10 10"></path><g class="special-sequence"><path d="M340 477h80.75"></path><path d="M806.25 477h80.75"></path><rect x="420.75" y="466" width="385.5" height="22"></rect><text x="613.5" y="481"> U+FEFF ZERO WIDTH NO-BREAK SPACE (ZWNBSP) </text></g><path d="M887 477a10 10 0 0 0 10 -10v-70a10 10 0 0 1 10 -10"></path><path d="M320 387a10 10 0 0 1 10 10v100a10 10 0 0 0 10 10"></path><g class="special-sequence"><path d="M340 507h0"></path><path d="M887 507h0"></path><rect x="340" y="496" width="547" height="22"></rect><text x="613.5" y="511"> "Category Zs" Any Unicode "Space&#95;Separator code point" (USP) </text></g><path d="M887 507a10 10 0 0 0 10 -10v-100a10 10 0 0 1 10 -10"></path></g><g><path d="M320 357h0"></path><path d="M400 357h0"></path><a xlink:href="#Whitespace"><text x="360" y="362" class="comment">Whitespace</text></a></g></g><path d="M1058.5 387h20"></path><path d="M148.5 387a10 10 0 0 1 10 10v168a10 10 0 0 0 10 10"></path><g><path d="M168.5 575h274.75"></path><path d="M783.75 575h274.75"></path><rect x="443.25" y="556" width="340.5" height="128" rx="10" ry="10" class="group-box"></rect><g><path d="M443.25 575h0"></path><path d="M783.75 575h0"></path><path d="M443.25 575h20"></path><g class="special-sequence"><path d="M463.25 575h42.5"></path><path d="M721.25 575h42.5"></path><rect x="505.75" y="564" width="215.5" height="22"></rect><text x="613.5" y="579"> U+000A LINE FEED (LF) </text></g><path d="M763.75 575h20"></path><path d="M443.25 575a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path><g class="special-sequence"><path d="M463.25 605h17"></path><path d="M746.75 605h17"></path><rect x="480.25" y="594" width="266.5" height="22"></rect><text x="613.5" y="609"> U+000D CARRIAGE RETURN (CR) </text></g><path d="M763.75 605a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path><path d="M443.25 575a10 10 0 0 1 10 10v40a10 10 0 0 0 10 10"></path><g class="special-sequence"><path d="M463.25 635h21.25"></path><path d="M742.5 635h21.25"></path><rect x="484.5" y="624" width="258" height="22"></rect><text x="613.5" y="639"> U+2028 LINE SEPARATOR (LS) </text></g><path d="M763.75 635a10 10 0 0 0 10 -10v-40a10 10 0 0 1 10 -10"></path><path d="M443.25 575a10 10 0 0 1 10 10v70a10 10 0 0 0 10 10"></path><g class="special-sequence"><path d="M463.25 665h0"></path><path d="M763.75 665h0"></path><rect x="463.25" y="654" width="300.5" height="22"></rect><text x="613.5" y="669"> U+2029 PARAGRAPH SEPARATOR (PS) </text></g><path d="M763.75 665a10 10 0 0 0 10 -10v-70a10 10 0 0 1 10 -10"></path></g><g><path d="M443.25 545h0"></path><path d="M558.25 545h0"></path><a xlink:href="#Line-Terminator"><text x="500.75" y="550" class="comment">Line Terminator</text></a></g></g><path d="M1058.5 575a10 10 0 0 0 10 -10v-168a10 10 0 0 1 10 -10"></path><path d="M148.5 387a10 10 0 0 1 10 10v296a10 10 0 0 0 10 10"></path><g class="special-sequence"><path d="M168.5 703h396.75"></path><path d="M661.75 703h396.75"></path><rect x="565.25" y="692" width="96.5" height="22"></rect><text x="613.5" y="707"> Comment </text></g><path d="M1058.5 703a10 10 0 0 0 10 -10v-296a10 10 0 0 1 10 -10"></path><path d="M148.5 387a10 10 0 0 1 10 10v476a10 10 0 0 0 10 10"></path><g><path d="M168.5 883h0"></path><path d="M1058.5 1239h0"></path><rect x="168.5" y="744" width="890" height="818" rx="10" ry="10" class="group-box"></rect><g><path d="M168.5 883h0"></path><path d="M1058.5 1239h0"></path><path d="M168.5 883h20"></path><g><path d="M188.5 883h0"></path><path d="M1038.5 1239h0"></path><rect x="188.5" y="774" width="850" height="712" rx="10" ry="10" class="group-box"></rect><g><path d="M188.5 883h10"></path><path d="M198.5 883h10"></path><g><path d="M208.5 883h10"></path><path d="M1008.5 883h10"></path><g><path d="M218.5 883h0"></path><path d="M1008.5 883h0"></path><rect x="218.5" y="804" width="790" height="310" rx="10" ry="10" class="group-box"></rect><g><path d="M218.5 883h0"></path><path d="M1008.5 883h0"></path><path d="M218.5 883h20"></path><g><path d="M238.5 883h75.75"></path><path d="M912.75 883h75.75"></path><rect x="314.25" y="834" width="598.5" height="136" rx="10" ry="10" class="group-box"></rect><g><path d="M314.25 883h0"></path><path d="M912.75 883h0"></path><path d="M314.25 883h20"></path><g><path d="M334.25 883h0"></path><path d="M892.75 883h0"></path><rect x="334.25" y="864" width="558.5" height="38" rx="10" ry="10" class="group-box"></rect><g class="special-sequence"><path d="M334.25 883h10"></path><path d="M882.75 883h10"></path><rect x="344.25" y="872" width="538.5" height="22"></rect><text x="613.5" y="887"> any Unicode code point with the Unicode property “ID&#95;Start” </text></g><g><path d="M334.25 853h0"></path><path d="M442.25 853h0"></path><a xlink:href="#UnicodeIDStart"><text x="388.25" y="858" class="comment">UnicodeIDStart</text></a></g></g><path d="M892.75 883h20"></path><path d="M314.25 883a10 10 0 0 1 10 10v18a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M334.25 921h265"></path><path d="M627.75 921h265"></path><rect x="599.25" y="910" width="28.5" height="22" rx="10" ry="10"></rect><text x="613.5" y="925">$</text></g><path d="M892.75 921a10 10 0 0 0 10 -10v-18a10 10 0 0 1 10 -10"></path><path d="M314.25 883a10 10 0 0 1 10 10v48a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M334.25 951h265"></path><path d="M627.75 951h265"></path><rect x="599.25" y="940" width="28.5" height="22" rx="10" ry="10"></rect><text x="613.5" y="955">&#95;</text></g><path d="M892.75 951a10 10 0 0 0 10 -10v-48a10 10 0 0 1 10 -10"></path></g><g><path d="M314.25 823h0"></path><path d="M457.25 823h0"></path><a xlink:href="#IdentifierStartChar"><text x="385.75" y="828" class="comment">IdentifierStartChar</text></a></g></g><path d="M988.5 883h20"></path><path d="M218.5 883a10 10 0 0 1 10 10v116a10 10 0 0 0 10 10"></path><g><path d="M238.5 1019h0"></path><g><path d="M238.5 1019h10"></path><path d="M978.5 1019h10"></path><g class="terminal"><path d="M248.5 1019h0"></path><path d="M277 1019h0"></path><rect x="248.5" y="1008" width="28.5" height="22" rx="10" ry="10"></rect><text x="262.75" y="1023">\</text></g><path d="M277 1019h10"></path><path d="M287 1019h10"></path><g><path d="M297 1019h0"></path><path d="M978.5 1019h0"></path><rect x="297" y="1000" width="681.5" height="106" rx="10" ry="10" class="group-box"></rect><g><path d="M297 1019h0"></path><path d="M978.5 1019h0"></path><path d="M297 1019h20"></path><g><path d="M317 1019h80.5"></path><g><path d="M397.5 1019h10"></path><path d="M868 1019h10"></path><g class="terminal"><path d="M407.5 1019h0"></path><path d="M436 1019h0"></path><rect x="407.5" y="1008" width="28.5" height="22" rx="10" ry="10"></rect><text x="421.75" y="1023">u</text></g><path d="M436 1019h10"></path><path d="M446 1019h10"></path><g class="non-terminal"><path d="M456 1019h0"></path><path d="M544 1019h0"></path><rect x="456" y="1008" width="88" height="22"></rect><a xlink:href="#HexDigit"><text x="500" y="1023">HexDigit</text></a></g><path d="M544 1019h10"></path><path d="M554 1019h10"></path><g class="non-terminal"><path d="M564 1019h0"></path><path d="M652 1019h0"></path><rect x="564" y="1008" width="88" height="22"></rect><a xlink:href="#HexDigit"><text x="608" y="1023">HexDigit</text></a></g><path d="M652 1019h10"></path><path d="M662 1019h10"></path><g class="non-terminal"><path d="M672 1019h0"></path><path d="M760 1019h0"></path><rect x="672" y="1008" width="88" height="22"></rect><a xlink:href="#HexDigit"><text x="716" y="1023">HexDigit</text></a></g><path d="M760 1019h10"></path><path d="M770 1019h10"></path><g class="non-terminal"><path d="M780 1019h0"></path><path d="M868 1019h0"></path><rect x="780" y="1008" width="88" height="22"></rect><a xlink:href="#HexDigit"><text x="824" y="1023">HexDigit</text></a></g></g><path d="M878 1019h80.5"></path></g><path d="M958.5 1019h20"></path><path d="M297 1019a10 10 0 0 1 10 10v40a10 10 0 0 0 10 10"></path><g><path d="M317 1079h0"></path><g><path d="M317 1079h10"></path><path d="M948.5 1079h10"></path><g class="terminal"><path d="M327 1079h0"></path><path d="M364 1079h0"></path><rect x="327" y="1068" width="37" height="22" rx="10" ry="10"></rect><text x="345.5" y="1083">u{</text></g><path d="M364 1079h10"></path><path d="M374 1079h10"></path><g><path d="M384 1079h0"></path><path d="M900 1079h0"></path><rect x="384" y="1060" width="516" height="38" rx="10" ry="10" class="group-box"></rect><g class="special-sequence"><path d="M384 1079h10"></path><path d="M890 1079h10"></path><rect x="394" y="1068" width="496" height="22"></rect><text x="642" y="1083"> HexDigits&#91;~Sep&#93; but only if MV of HexDigits ≤ 0x10FFFF </text></g><g><path d="M384 1049h0"></path><path d="M457 1049h0"></path><a xlink:href="#CodePoint"><text x="420.5" y="1054" class="comment">CodePoint</text></a></g></g><path d="M900 1079h10"></path><path d="M910 1079h10"></path><g class="terminal"><path d="M920 1079h0"></path><path d="M948.5 1079h0"></path><rect x="920" y="1068" width="28.5" height="22" rx="10" ry="10"></rect><text x="934.25" y="1083">}</text></g></g><path d="M958.5 1079h0"></path></g><path d="M958.5 1079a10 10 0 0 0 10 -10v-40a10 10 0 0 1 10 -10"></path></g><g><path d="M297 989h0"></path><path d="M454 989h0"></path><a xlink:href="#UnicodeEscapeSequence"><text x="375.5" y="994" class="comment">UnicodeEscapeSequence</text></a></g></g></g><path d="M988.5 1019h0"></path></g><path d="M988.5 1019a10 10 0 0 0 10 -10v-116a10 10 0 0 1 10 -10"></path></g><g><path d="M218.5 793h0"></path><path d="M333.5 793h0"></path><a xlink:href="#IdentifierStart"><text x="276" y="798" class="comment">IdentifierStart</text></a></g></g></g><path d="M1018.5 883a10 10 0 0 1 10 10v219a10 10 0 0 1 -10 10h-810a10 10 0 0 0 -10 10v97a10 10 0 0 0 10 10"></path><g><path d="M208.5 1239h43"></path><path d="M975.5 1239h43"></path><g><path d="M251.5 1239h0"></path><path d="M975.5 1239h0"></path><path d="M251.5 1239a10 10 0 0 0 10 -10v-89a10 10 0 0 1 10 -10"></path><g><path d="M271.5 1130h684"></path></g><path d="M955.5 1130a10 10 0 0 1 10 10v89a10 10 0 0 0 10 10"></path><path d="M251.5 1239h20"></path><g><path d="M271.5 1239h0"></path><path d="M955.5 1239h0"></path><path d="M271.5 1239h10"></path><g><path d="M281.5 1239h0"></path><path d="M945.5 1239h0"></path><rect x="281.5" y="1160" width="664" height="310" rx="10" ry="10" class="group-box"></rect><g><path d="M281.5 1239h0"></path><path d="M945.5 1239h0"></path><path d="M281.5 1239h20"></path><g><path d="M301.5 1239h0"></path><path d="M925.5 1239h0"></path><rect x="301.5" y="1190" width="624" height="242" rx="10" ry="10" class="group-box"></rect><g><path d="M301.5 1239h0"></path><path d="M925.5 1239h0"></path><path d="M301.5 1239h20"></path><g><path d="M321.5 1239h0"></path><path d="M905.5 1239h0"></path><rect x="321.5" y="1220" width="584" height="38" rx="10" ry="10" class="group-box"></rect><g class="special-sequence"><path d="M321.5 1239h10"></path><path d="M895.5 1239h10"></path><rect x="331.5" y="1228" width="564" height="22"></rect><text x="613.5" y="1243"> any Unicode code point with the Unicode property “ID&#95;Continue” </text></g><g><path d="M321.5 1209h0"></path><path d="M450.5 1209h0"></path><a xlink:href="#UnicodeIDContinue"><text x="386" y="1214" class="comment">UnicodeIDContinue</text></a></g></g><path d="M905.5 1239h20"></path><path d="M301.5 1239a10 10 0 0 1 10 10v18a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M321.5 1277h277.75"></path><path d="M627.75 1277h277.75"></path><rect x="599.25" y="1266" width="28.5" height="22" rx="10" ry="10"></rect><text x="613.5" y="1281">$</text></g><path d="M905.5 1277a10 10 0 0 0 10 -10v-18a10 10 0 0 1 10 -10"></path><path d="M301.5 1239a10 10 0 0 1 10 10v78a10 10 0 0 0 10 10"></path><g><path d="M321.5 1337h144.5"></path><path d="M761 1337h144.5"></path><rect x="466" y="1318" width="295" height="38" rx="10" ry="10" class="group-box"></rect><g class="special-sequence"><path d="M466 1337h10"></path><path d="M751 1337h10"></path><rect x="476" y="1326" width="275" height="22"></rect><text x="613.5" y="1341"> U+200C ZERO WIDTH NON-JOINER </text></g><g><path d="M466 1307h0"></path><path d="M504 1307h0"></path><a xlink:href="#ZWNJ"><text x="485" y="1312" class="comment">ZWNJ</text></a></g></g><path d="M905.5 1337a10 10 0 0 0 10 -10v-78a10 10 0 0 1 10 -10"></path><path d="M301.5 1239a10 10 0 0 1 10 10v146a10 10 0 0 0 10 10"></path><g><path d="M321.5 1405h161.5"></path><path d="M744 1405h161.5"></path><rect x="483" y="1386" width="261" height="38" rx="10" ry="10" class="group-box"></rect><g class="special-sequence"><path d="M483 1405h10"></path><path d="M734 1405h10"></path><rect x="493" y="1394" width="241" height="22"></rect><text x="613.5" y="1409"> U+200D ZERO WIDTH JOINER </text></g><g><path d="M483 1375h0"></path><path d="M514 1375h0"></path><a xlink:href="#ZWJ"><text x="498.5" y="1380" class="comment">ZWJ</text></a></g></g><path d="M905.5 1405a10 10 0 0 0 10 -10v-146a10 10 0 0 1 10 -10"></path></g><g><path d="M301.5 1179h0"></path><path d="M465.5 1179h0"></path><a xlink:href="#IdentifierContinueChar"><text x="383.5" y="1184" class="comment">IdentifierContinueChar</text></a></g></g><path d="M925.5 1239h20"></path><path d="M281.5 1239a10 10 0 0 1 10 10v192a10 10 0 0 0 10 10"></path><g><path d="M301.5 1451h188.5"></path><path d="M737 1451h188.5"></path><g class="terminal"><path d="M490 1451h0"></path><path d="M518.5 1451h0"></path><rect x="490" y="1440" width="28.5" height="22" rx="10" ry="10"></rect><text x="504.25" y="1455">\</text></g><path d="M518.5 1451h10"></path><path d="M528.5 1451h10"></path><g class="non-terminal"><path d="M538.5 1451h0"></path><path d="M737 1451h0"></path><rect x="538.5" y="1440" width="198.5" height="22"></rect><a xlink:href="#UnicodeEscapeSequence"><text x="637.75" y="1455">UnicodeEscapeSequence</text></a></g></g><path d="M925.5 1451a10 10 0 0 0 10 -10v-192a10 10 0 0 1 10 -10"></path></g><g><path d="M281.5 1149h0"></path><path d="M417.5 1149h0"></path><a xlink:href="#IdentifierContinue"><text x="349.5" y="1154" class="comment">IdentifierContinue</text></a></g></g><path d="M945.5 1239h10"></path><path d="M281.5 1239a10 10 0 0 0 -10 10v219a10 10 0 0 0 10 10"></path><g><path d="M281.5 1478h664"></path></g><path d="M945.5 1478a10 10 0 0 0 10 -10v-219a10 10 0 0 0 -10 -10"></path></g><path d="M955.5 1239h20"></path></g></g><path d="M1018.5 1239h10"></path><path d="M1028.5 1239h10"></path></g><g><path d="M188.5 763h0"></path><path d="M268.5 763h0"></path><a xlink:href="#Identifier"><text x="228.5" y="768" class="comment">Identifier</text></a></g></g><path d="M1038.5 1239h20"></path><path d="M168.5 883a10 10 0 0 1 10 10v632a10 10 0 0 0 10 10"></path><g><path d="M188.5 1535h337"></path><path d="M701.5 1535h337"></path><rect x="525.5" y="1516" width="176" height="38" rx="10" ry="10" class="group-box"></rect><g class="special-sequence"><path d="M525.5 1535h10"></path><path d="M691.5 1535h10"></path><rect x="535.5" y="1524" width="156" height="22"></rect><text x="613.5" y="1539"> NumericLiteral </text></g><g><path d="M525.5 1505h0"></path><path d="M577.5 1505h0"></path><a xlink:href="#Number"><text x="551.5" y="1510" class="comment">Number</text></a></g></g><path d="M1038.5 1535a10 10 0 0 0 10 -10v-276a10 10 0 0 1 10 -10"></path></g><g><path d="M168.5 733h0"></path><path d="M206.5 733h0"></path><a xlink:href="#Word"><text x="187.5" y="738" class="comment">Word</text></a></g></g><path d="M1058.5 1239a10 10 0 0 0 10 -10v-832a10 10 0 0 1 10 -10"></path><path d="M148.5 387a10 10 0 0 1 10 10v1204a10 10 0 0 0 10 10"></path><g><path d="M168.5 1611h358.25"></path><path d="M700.25 1611h358.25"></path><rect x="526.75" y="1592" width="173.5" height="38" rx="10" ry="10" class="group-box"></rect><g><path d="M526.75 1611h10"></path><path d="M690.25 1611h10"></path><g class="terminal"><path d="M536.75 1611h0"></path><path d="M565.25 1611h0"></path><rect x="536.75" y="1600" width="28.5" height="22" rx="10" ry="10"></rect><text x="551" y="1615">#</text></g><path d="M565.25 1611h10"></path><path d="M575.25 1611h10"></path><g class="non-terminal"><path d="M585.25 1611h0"></path><path d="M690.25 1611h0"></path><rect x="585.25" y="1600" width="105" height="22"></rect><a xlink:href="#Identifier"><text x="637.75" y="1615">Identifier</text></a></g></g><g><path d="M526.75 1581h0"></path><path d="M662.75 1581h0"></path><a xlink:href="#Private-Identifier"><text x="594.75" y="1586" class="comment">Private Identifier</text></a></g></g><path d="M1058.5 1611a10 10 0 0 0 10 -10v-1204a10 10 0 0 1 10 -10"></path><path d="M148.5 387a10 10 0 0 1 10 10v1272a10 10 0 0 0 10 10"></path><g><path d="M168.5 1679h255"></path><path d="M803.5 1679h255"></path><rect x="423.5" y="1660" width="380" height="38" rx="10" ry="10" class="group-box"></rect><g class="special-sequence"><path d="M423.5 1679h10"></path><path d="M793.5 1679h10"></path><rect x="433.5" y="1668" width="360" height="22"></rect><text x="613.5" y="1683"> single or double-quoted string literal </text></g><g><path d="M423.5 1649h0"></path><path d="M531.5 1649h0"></path><a xlink:href="#String-Literal"><text x="477.5" y="1654" class="comment">String Literal</text></a></g></g><path d="M1058.5 1679a10 10 0 0 0 10 -10v-1272a10 10 0 0 1 10 -10"></path><path d="M148.5 387a10 10 0 0 1 10 10v1340a10 10 0 0 0 10 10"></path><g><path d="M168.5 1747h293.25"></path><path d="M765.25 1747h293.25"></path><rect x="461.75" y="1728" width="303.5" height="38" rx="10" ry="10" class="group-box"></rect><g class="special-sequence"><path d="M461.75 1747h10"></path><path d="M755.25 1747h10"></path><rect x="471.75" y="1736" width="283.5" height="22"></rect><text x="613.5" y="1751"> a JavaScript template literal </text></g><g><path d="M461.75 1717h0"></path><path d="M583.75 1717h0"></path><a xlink:href="#Template-Literal"><text x="522.75" y="1722" class="comment">Template Literal</text></a></g></g><path d="M1058.5 1747a10 10 0 0 0 10 -10v-1340a10 10 0 0 1 10 -10"></path><path d="M148.5 387a10 10 0 0 1 10 10v1378a10 10 0 0 0 10 10"></path><g class="special-sequence"><path d="M168.5 1785h316"></path><path d="M742.5 1785h316"></path><rect x="484.5" y="1774" width="258" height="22"></rect><text x="613.5" y="1789"> Regular Expression Literal </text></g><path d="M1058.5 1785a10 10 0 0 0 10 -10v-1378a10 10 0 0 1 10 -10"></path><path d="M148.5 387a10 10 0 0 1 10 10v1408a10 10 0 0 0 10 10"></path><g class="special-sequence"><path d="M168.5 1815h379.75"></path><path d="M678.75 1815h379.75"></path><rect x="548.25" y="1804" width="130.5" height="22"></rect><text x="613.5" y="1819"> Punctuation </text></g><path d="M1058.5 1815a10 10 0 0 0 10 -10v-1408a10 10 0 0 1 10 -10"></path></g><g><path d="M148.5 327h0"></path><path d="M193.5 327h0"></path><a xlink:href="#Token"><text x="171" y="332" class="comment">Token</text></a></g></g><path d="M1078.5 387a10 10 0 0 0 10 -10v-259a10 10 0 0 1 10 -10"></path></g><g><path d="M128.5 39h0"></path><path d="M201.5 39h0"></path><a xlink:href="#TokenTree"><text x="165" y="44" class="comment">TokenTree</text></a></g></g><path d="M1098.5 108h10"></path><path d="M128.5 108a10 10 0 0 0 -10 10v1722a10 10 0 0 0 10 10"></path><g><path d="M128.5 1850h970"></path></g><path d="M1098.5 1850a10 10 0 0 0 10 -10v-1722a10 10 0 0 0 -10 -10"></path></g><path d="M1108.5 108h20"></path></g><path d="M1128.5 108h10"></path><g class="terminal"><path d="M1138.5 108h0"></path><path d="M1167 108h0"></path><rect x="1138.5" y="97" width="28.5" height="22" rx="10" ry="10"></rect><text x="1152.75" y="112">&#93;</text></g></g><path d="M1177 108h0"></path></g><path d="M1177 108h10"></path><path d="M 1187 108 h 20 m 0 -10 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">Bracketed</span> = <span class="ebnf-terminal">"["</span> , { <a class="ebnf-non-terminal" href="#TokenTree">TokenTree</a> } , <span class="ebnf-terminal">"]"</span> <span class="ebnf-end">;</span></code>
+  <p>Items referencing <strong>Bracketed</strong>:<p>
+<ul>
+<li><a href="#TokenTree">TokenTree</a></li>
+</ul>
+  <p><strong>Bracketed</strong> is referencing:<p>
+<ul>
+<li><a href="#TokenTree">TokenTree</a></li>
+</ul>
+</section>
+<section>
+  <h4 id="Block">Block</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="333.5" style="max-height: 80px;" viewBox="0 0 333.5 80"><g transform="translate(.5 .5)"><g><path d="M20 30v20m0 -10h20"></path></g><path d="M40 40h10"></path><g><path d="M50 40h0"></path><path d="M283.5 40h0"></path><g class="terminal"><path d="M50 40h0"></path><path d="M78.5 40h0"></path><rect x="50" y="29" width="28.5" height="22" rx="10" ry="10"></rect><text x="64.25" y="44">{</text></g><path d="M78.5 40h10"></path><g><path d="M88.5 40h0"></path><path d="M245 40h0"></path><path d="M88.5 40a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path><g><path d="M108.5 20h116.5"></path></g><path d="M225 20a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path><path d="M88.5 40h20"></path><g><path d="M108.5 40h0"></path><path d="M225 40h0"></path><path d="M108.5 40h10"></path><g class="non-terminal"><path d="M118.5 40h0"></path><path d="M215 40h0"></path><rect x="118.5" y="29" width="96.5" height="22"></rect><a xlink:href="#TokenTree"><text x="166.75" y="44">TokenTree</text></a></g><path d="M215 40h10"></path><path d="M118.5 40a10 10 0 0 0 -10 10v0a10 10 0 0 0 10 10"></path><g><path d="M118.5 60h96.5"></path></g><path d="M215 60a10 10 0 0 0 10 -10v0a10 10 0 0 0 -10 -10"></path></g><path d="M225 40h20"></path></g><path d="M245 40h10"></path><g class="terminal"><path d="M255 40h0"></path><path d="M283.5 40h0"></path><rect x="255" y="29" width="28.5" height="22" rx="10" ry="10"></rect><text x="269.25" y="44">}</text></g></g><path d="M283.5 40h10"></path><path d="M 293.5 40 h 20 m 0 -10 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">Block</span> = <span class="ebnf-terminal">"{"</span> , { <a class="ebnf-non-terminal" href="#TokenTree">TokenTree</a> } , <span class="ebnf-terminal">"}"</span> <span class="ebnf-end">;</span></code>
+  <p>Items referencing <strong>Block</strong>:<p>
+<ul>
+<li><a href="#TokenTree">TokenTree</a></li>
+</ul>
+  <p><strong>Block</strong> is referencing:<p>
+<ul>
+<li><a href="#TokenTree">TokenTree</a></li>
+</ul>
+</section>
+<section>
+  <h4 id="Parenthesized">Parenthesized</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="333.5" style="max-height: 80px;" viewBox="0 0 333.5 80"><g transform="translate(.5 .5)"><g><path d="M20 30v20m0 -10h20"></path></g><path d="M40 40h10"></path><g><path d="M50 40h0"></path><path d="M283.5 40h0"></path><g class="terminal"><path d="M50 40h0"></path><path d="M78.5 40h0"></path><rect x="50" y="29" width="28.5" height="22" rx="10" ry="10"></rect><text x="64.25" y="44">(</text></g><path d="M78.5 40h10"></path><g><path d="M88.5 40h0"></path><path d="M245 40h0"></path><path d="M88.5 40a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path><g><path d="M108.5 20h116.5"></path></g><path d="M225 20a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path><path d="M88.5 40h20"></path><g><path d="M108.5 40h0"></path><path d="M225 40h0"></path><path d="M108.5 40h10"></path><g class="non-terminal"><path d="M118.5 40h0"></path><path d="M215 40h0"></path><rect x="118.5" y="29" width="96.5" height="22"></rect><a xlink:href="#TokenTree"><text x="166.75" y="44">TokenTree</text></a></g><path d="M215 40h10"></path><path d="M118.5 40a10 10 0 0 0 -10 10v0a10 10 0 0 0 10 10"></path><g><path d="M118.5 60h96.5"></path></g><path d="M215 60a10 10 0 0 0 10 -10v0a10 10 0 0 0 -10 -10"></path></g><path d="M225 40h20"></path></g><path d="M245 40h10"></path><g class="terminal"><path d="M255 40h0"></path><path d="M283.5 40h0"></path><rect x="255" y="29" width="28.5" height="22" rx="10" ry="10"></rect><text x="269.25" y="44">)</text></g></g><path d="M283.5 40h10"></path><path d="M 293.5 40 h 20 m 0 -10 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">Parenthesized</span> = <span class="ebnf-terminal">"("</span> , { <a class="ebnf-non-terminal" href="#TokenTree">TokenTree</a> } , <span class="ebnf-terminal">")"</span> <span class="ebnf-end">;</span></code>
+  <p>Items referencing <strong>Parenthesized</strong>:<p>
+<ul>
+<li><a href="#TokenTree">TokenTree</a></li>
+</ul>
+  <p><strong>Parenthesized</strong> is referencing:<p>
+<ul>
+<li><a href="#TokenTree">TokenTree</a></li>
+</ul>
+</section>
+<section>
+  <h4 id="TokenTree">TokenTree</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="250.5" style="max-height: 152px;" viewBox="0 0 250.5 152"><g transform="translate(.5 .5)"><g><path d="M20 21v20m0 -10h20"></path></g><g><path d="M40 31h0"></path><path d="M210.5 31h0"></path><path d="M40 31h20"></path><g class="non-terminal"><path d="M60 31h17"></path><path d="M173.5 31h17"></path><rect x="77" y="20" width="96.5" height="22"></rect><a xlink:href="#Bracketed"><text x="125.25" y="35">Bracketed</text></a></g><path d="M190.5 31h20"></path><path d="M40 31a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path><g class="non-terminal"><path d="M60 61h34"></path><path d="M156.5 61h34"></path><rect x="94" y="50" width="62.5" height="22"></rect><a xlink:href="#Block"><text x="125.25" y="65">Block</text></a></g><path d="M190.5 61a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path><path d="M40 31a10 10 0 0 1 10 10v40a10 10 0 0 0 10 10"></path><g class="non-terminal"><path d="M60 91h0"></path><path d="M190.5 91h0"></path><rect x="60" y="80" width="130.5" height="22"></rect><a xlink:href="#Parenthesized"><text x="125.25" y="95">Parenthesized</text></a></g><path d="M190.5 91a10 10 0 0 0 10 -10v-40a10 10 0 0 1 10 -10"></path><path d="M40 31a10 10 0 0 1 10 10v70a10 10 0 0 0 10 10"></path><g class="non-terminal"><path d="M60 121h34"></path><path d="M156.5 121h34"></path><rect x="94" y="110" width="62.5" height="22"></rect><a xlink:href="#Token"><text x="125.25" y="125">Token</text></a></g><path d="M190.5 121a10 10 0 0 0 10 -10v-70a10 10 0 0 1 10 -10"></path></g><path d="M 210.5 31 h 20 m 0 -10 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">TokenTree</span>
+  = <a class="ebnf-non-terminal" href="#Bracketed">Bracketed</a>
+  | <a class="ebnf-non-terminal" href="#Block">Block</a>
+  | <a class="ebnf-non-terminal" href="#Parenthesized">Parenthesized</a>
+  | <a class="ebnf-non-terminal" href="#Token">Token</a>
+  <span class="ebnf-end">;</span></code>
+  <p>Items referencing <strong>TokenTree</strong>:<p>
+<ul>
+<li><a href="#Bracketed">Bracketed</a></li><li><a href="#Block">Block</a></li><li><a href="#Parenthesized">Parenthesized</a></li>
+</ul>
+  <p><strong>TokenTree</strong> is referencing:<p>
+<ul>
+<li><a href="#Bracketed">Bracketed</a></li><li><a href="#Block">Block</a></li><li><a href="#Parenthesized">Parenthesized</a></li><li><a href="#Token">Token</a></li>
+</ul>
+</section>
+<section>
+  <h4 id="Word">Word</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="225" style="max-height: 92px;" viewBox="0 0 225 92"><g transform="translate(.5 .5)"><g><path d="M20 21v20m0 -10h20"></path></g><g><path d="M40 31h0"></path><path d="M185 31h0"></path><path d="M40 31h20"></path><g class="non-terminal"><path d="M60 31h0"></path><path d="M165 31h0"></path><rect x="60" y="20" width="105" height="22"></rect><a xlink:href="#Identifier"><text x="112.5" y="35">Identifier</text></a></g><path d="M165 31h20"></path><path d="M40 31a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path><g class="non-terminal"><path d="M60 61h17"></path><path d="M148 61h17"></path><rect x="77" y="50" width="71" height="22"></rect><a xlink:href="#Number"><text x="112.5" y="65">Number</text></a></g><path d="M165 61a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path></g><path d="M 185 31 h 20 m 0 -10 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">Word</span> = <a class="ebnf-non-terminal" href="#Identifier">Identifier</a> | <a class="ebnf-non-terminal" href="#Number">Number</a> <span class="ebnf-end">;</span></code>
+  <p>Items referencing <strong>Word</strong>:<p>
+<ul>
+<li><a href="#Token">Token</a></li>
+</ul>
+  <p><strong>Word</strong> is referencing:<p>
+<ul>
+<li><a href="#Identifier">Identifier</a></li><li><a href="#Number">Number</a></li>
+</ul>
+</section>
+<section>
+  <h4 id="Private-Identifier">Private Identifier</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="253.5" style="max-height: 62px;" viewBox="0 0 253.5 62"><g transform="translate(.5 .5)"><g><path d="M20 21v20m0 -10h20"></path></g><path d="M40 31h10"></path><g><path d="M50 31h0"></path><path d="M203.5 31h0"></path><g class="terminal"><path d="M50 31h0"></path><path d="M78.5 31h0"></path><rect x="50" y="20" width="28.5" height="22" rx="10" ry="10"></rect><text x="64.25" y="35">#</text></g><path d="M78.5 31h10"></path><path d="M88.5 31h10"></path><g class="non-terminal"><path d="M98.5 31h0"></path><path d="M203.5 31h0"></path><rect x="98.5" y="20" width="105" height="22"></rect><a xlink:href="#Identifier"><text x="151" y="35">Identifier</text></a></g></g><path d="M203.5 31h10"></path><path d="M 213.5 31 h 20 m 0 -10 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">Private Identifier</span> = <span class="ebnf-terminal">"#"</span> , <a class="ebnf-non-terminal" href="#Identifier">Identifier</a> <span class="ebnf-end">;</span></code>
+  <p>Items referencing <strong>Private Identifier</strong>:<p>
+<ul>
+<li><a href="#Token">Token</a></li>
+</ul>
+  <p><strong>Private Identifier</strong> is referencing:<p>
+<ul>
+<li><a href="#Identifier">Identifier</a></li>
+</ul>
+</section>
+<section>
+  <h4 id="Punctuation">Punctuation</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="287.5" style="max-height: 80px;" viewBox="0 0 287.5 80"><g transform="translate(.5 .5)"><g><path d="M20 30v20m0 -10h20"></path></g><g><path d="M40 40h0"></path><path d="M247.5 40h0"></path><path d="M40 40a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path><g><path d="M60 20h167.5"></path></g><path d="M227.5 20a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path><path d="M40 40h20"></path><g><path d="M60 40h0"></path><path d="M227.5 40h0"></path><path d="M60 40h10"></path><g class="non-terminal"><path d="M70 40h0"></path><path d="M217.5 40h0"></path><rect x="70" y="29" width="147.5" height="22"></rect><a xlink:href="#PunctuationChar"><text x="143.75" y="44">PunctuationChar</text></a></g><path d="M217.5 40h10"></path><path d="M70 40a10 10 0 0 0 -10 10v0a10 10 0 0 0 10 10"></path><g><path d="M70 60h147.5"></path></g><path d="M217.5 60a10 10 0 0 0 10 -10v0a10 10 0 0 0 -10 -10"></path></g><path d="M227.5 40h20"></path></g><path d="M 247.5 40 h 20 m 0 -10 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">Punctuation</span> = { <a class="ebnf-non-terminal" href="#PunctuationChar">PunctuationChar</a> } <span class="ebnf-end">;</span></code>
+  <p><strong>Punctuation</strong> is referencing:<p>
+<ul>
+<li><a href="#PunctuationChar">PunctuationChar</a></li>
+</ul>
+</section>
+<section>
+  <h4 id="PunctuationChar">PunctuationChar</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="257" style="max-height: 341px;" viewBox="0 0 257 341"><g transform="translate(.5 .5)"><g><path d="M20 30v20m10 -20v20m-10 -10h20"></path></g><g><path d="M40 40h0"></path><path d="M217 40h0"></path><path d="M40 40a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10h58.5"></path><path d="M138.5 209h58.5a10 10 0 0 0 10 -10v-149a10 10 0 0 1 10 -10"></path><path d="M40 40h10"></path><g><path d="M50 40h0"></path><path d="M118.5 40h0"></path><path d="M50 40h20"></path><g class="terminal"><path d="M70 40h0"></path><path d="M98.5 40h0"></path><rect x="70" y="29" width="28.5" height="22" rx="10" ry="10"></rect><text x="84.25" y="44">.</text></g><path d="M98.5 40h20"></path><path d="M50 40a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M70 70h0"></path><path d="M98.5 70h0"></path><rect x="70" y="59" width="28.5" height="22" rx="10" ry="10"></rect><text x="84.25" y="74">;</text></g><path d="M98.5 70a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path><path d="M50 40a10 10 0 0 1 10 10v40a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M70 100h0"></path><path d="M98.5 100h0"></path><rect x="70" y="89" width="28.5" height="22" rx="10" ry="10"></rect><text x="84.25" y="104">,</text></g><path d="M98.5 100a10 10 0 0 0 10 -10v-40a10 10 0 0 1 10 -10"></path><path d="M50 40a10 10 0 0 1 10 10v70a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M70 130h0"></path><path d="M98.5 130h0"></path><rect x="70" y="119" width="28.5" height="22" rx="10" ry="10"></rect><text x="84.25" y="134">&#60;</text></g><path d="M98.5 130a10 10 0 0 0 10 -10v-70a10 10 0 0 1 10 -10"></path><path d="M50 40a10 10 0 0 1 10 10v100a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M70 160h0"></path><path d="M98.5 160h0"></path><rect x="70" y="149" width="28.5" height="22" rx="10" ry="10"></rect><text x="84.25" y="164">></text></g><path d="M98.5 160a10 10 0 0 0 10 -10v-100a10 10 0 0 1 10 -10"></path><path d="M50 40a10 10 0 0 1 10 10v130a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M70 190h0"></path><path d="M98.5 190h0"></path><rect x="70" y="179" width="28.5" height="22" rx="10" ry="10"></rect><text x="84.25" y="194">=</text></g><path d="M98.5 190a10 10 0 0 0 10 -10v-130a10 10 0 0 1 10 -10"></path><path d="M50 40a10 10 0 0 1 10 10v160a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M70 220h0"></path><path d="M98.5 220h0"></path><rect x="70" y="209" width="28.5" height="22" rx="10" ry="10"></rect><text x="84.25" y="224">!</text></g><path d="M98.5 220a10 10 0 0 0 10 -10v-160a10 10 0 0 1 10 -10"></path><path d="M50 40a10 10 0 0 1 10 10v190a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M70 250h0"></path><path d="M98.5 250h0"></path><rect x="70" y="239" width="28.5" height="22" rx="10" ry="10"></rect><text x="84.25" y="254">+</text></g><path d="M98.5 250a10 10 0 0 0 10 -10v-190a10 10 0 0 1 10 -10"></path><path d="M50 40a10 10 0 0 1 10 10v220a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M70 280h0"></path><path d="M98.5 280h0"></path><rect x="70" y="269" width="28.5" height="22" rx="10" ry="10"></rect><text x="84.25" y="284">-</text></g><path d="M98.5 280a10 10 0 0 0 10 -10v-220a10 10 0 0 1 10 -10"></path><path d="M50 40a10 10 0 0 1 10 10v250a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M70 310h0"></path><path d="M98.5 310h0"></path><rect x="70" y="299" width="28.5" height="22" rx="10" ry="10"></rect><text x="84.25" y="314">&#42;</text></g><path d="M98.5 310a10 10 0 0 0 10 -10v-250a10 10 0 0 1 10 -10"></path></g><path d="M118.5 40a10 10 0 0 1 10 10v149a10 10 0 0 0 10 10"></path><path d="M118.5 20a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path><g><path d="M138.5 40h0"></path><path d="M207 40h0"></path><path d="M138.5 40h20"></path><g class="terminal"><path d="M158.5 40h0"></path><path d="M187 40h0"></path><rect x="158.5" y="29" width="28.5" height="22" rx="10" ry="10"></rect><text x="172.75" y="44">%</text></g><path d="M187 40h20"></path><path d="M138.5 40a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M158.5 70h0"></path><path d="M187 70h0"></path><rect x="158.5" y="59" width="28.5" height="22" rx="10" ry="10"></rect><text x="172.75" y="74">&#38;</text></g><path d="M187 70a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path><path d="M138.5 40a10 10 0 0 1 10 10v40a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M158.5 100h0"></path><path d="M187 100h0"></path><rect x="158.5" y="89" width="28.5" height="22" rx="10" ry="10"></rect><text x="172.75" y="104">|</text></g><path d="M187 100a10 10 0 0 0 10 -10v-40a10 10 0 0 1 10 -10"></path><path d="M138.5 40a10 10 0 0 1 10 10v70a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M158.5 130h0"></path><path d="M187 130h0"></path><rect x="158.5" y="119" width="28.5" height="22" rx="10" ry="10"></rect><text x="172.75" y="134">^</text></g><path d="M187 130a10 10 0 0 0 10 -10v-70a10 10 0 0 1 10 -10"></path><path d="M138.5 40a10 10 0 0 1 10 10v100a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M158.5 160h0"></path><path d="M187 160h0"></path><rect x="158.5" y="149" width="28.5" height="22" rx="10" ry="10"></rect><text x="172.75" y="164">~</text></g><path d="M187 160a10 10 0 0 0 10 -10v-100a10 10 0 0 1 10 -10"></path><path d="M138.5 40a10 10 0 0 1 10 10v130a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M158.5 190h0"></path><path d="M187 190h0"></path><rect x="158.5" y="179" width="28.5" height="22" rx="10" ry="10"></rect><text x="172.75" y="194">:</text></g><path d="M187 190a10 10 0 0 0 10 -10v-130a10 10 0 0 1 10 -10"></path></g><path d="M207 40h10"></path></g><path d="M 217 40 h 20 m -10 -10 v 20 m 10 -20 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">PunctuationChar</span>
+  = <span class="ebnf-terminal">"."</span> | <span class="ebnf-terminal">";"</span> | <span class="ebnf-terminal">","</span> | <span class="ebnf-terminal">"&lt;"</span> | <span class="ebnf-terminal">"&gt;"</span> | <span class="ebnf-terminal">"="</span> | <span class="ebnf-terminal">"!"</span>
+  | <span class="ebnf-terminal">"+"</span> | <span class="ebnf-terminal">"-"</span> | <span class="ebnf-terminal">"*"</span> | <span class="ebnf-terminal">"%"</span> | <span class="ebnf-terminal">"&amp;"</span> | <span class="ebnf-terminal">"|"</span> | <span class="ebnf-terminal">"^"</span>
+  | <span class="ebnf-terminal">"~"</span> | <span class="ebnf-terminal">":"</span>
+  <span class="ebnf-end">;</span></code>
+  <p>Items referencing <strong>PunctuationChar</strong>:<p>
+<ul>
+<li><a href="#Punctuation">Punctuation</a></li>
+</ul>
+</section>
+<section>
+  <h4 id="Identifier">Identifier</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="490.5" style="max-height: 80px;" viewBox="0 0 490.5 80"><g transform="translate(.5 .5)"><g><path d="M20 30v20m0 -10h20"></path></g><path d="M40 40h10"></path><g><path d="M50 40h0"></path><path d="M440.5 40h0"></path><g class="non-terminal"><path d="M50 40h0"></path><path d="M197.5 40h0"></path><rect x="50" y="29" width="147.5" height="22"></rect><a xlink:href="#IdentifierStart"><text x="123.75" y="44">IdentifierStart</text></a></g><path d="M197.5 40h10"></path><g><path d="M207.5 40h0"></path><path d="M440.5 40h0"></path><path d="M207.5 40a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path><g><path d="M227.5 20h193"></path></g><path d="M420.5 20a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path><path d="M207.5 40h20"></path><g><path d="M227.5 40h0"></path><path d="M420.5 40h0"></path><path d="M227.5 40h10"></path><g class="non-terminal"><path d="M237.5 40h0"></path><path d="M410.5 40h0"></path><rect x="237.5" y="29" width="173" height="22"></rect><a xlink:href="#IdentifierContinue"><text x="324" y="44">IdentifierContinue</text></a></g><path d="M410.5 40h10"></path><path d="M237.5 40a10 10 0 0 0 -10 10v0a10 10 0 0 0 10 10"></path><g><path d="M237.5 60h173"></path></g><path d="M410.5 60a10 10 0 0 0 10 -10v0a10 10 0 0 0 -10 -10"></path></g><path d="M420.5 40h20"></path></g></g><path d="M440.5 40h10"></path><path d="M 450.5 40 h 20 m 0 -10 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">Identifier</span> = <a class="ebnf-non-terminal" href="#IdentifierStart">IdentifierStart</a> , { <a class="ebnf-non-terminal" href="#IdentifierContinue">IdentifierContinue</a> } <span class="ebnf-end">;</span></code>
+  <p>Items referencing <strong>Identifier</strong>:<p>
+<ul>
+<li><a href="#Word">Word</a></li><li><a href="#Private-Identifier">Private Identifier</a></li>
+</ul>
+  <p><strong>Identifier</strong> is referencing:<p>
+<ul>
+<li><a href="#IdentifierStart">IdentifierStart</a></li><li><a href="#IdentifierContinue">IdentifierContinue</a></li>
+</ul>
+</section>
+<section>
+  <h4 id="IdentifierStart">IdentifierStart</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="367" style="max-height: 92px;" viewBox="0 0 367 92"><g transform="translate(.5 .5)"><g><path d="M20 21v20m0 -10h20"></path></g><g><path d="M40 31h0"></path><path d="M327 31h0"></path><path d="M40 31h20"></path><g class="non-terminal"><path d="M60 31h32.75"></path><path d="M274.25 31h32.75"></path><rect x="92.75" y="20" width="181.5" height="22"></rect><a xlink:href="#IdentifierStartChar"><text x="183.5" y="35">IdentifierStartChar</text></a></g><path d="M307 31h20"></path><path d="M40 31a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path><g><path d="M60 61h0"></path><path d="M307 61h0"></path><g class="terminal"><path d="M60 61h0"></path><path d="M88.5 61h0"></path><rect x="60" y="50" width="28.5" height="22" rx="10" ry="10"></rect><text x="74.25" y="65">\</text></g><path d="M88.5 61h10"></path><path d="M98.5 61h10"></path><g class="non-terminal"><path d="M108.5 61h0"></path><path d="M307 61h0"></path><rect x="108.5" y="50" width="198.5" height="22"></rect><a xlink:href="#UnicodeEscapeSequence"><text x="207.75" y="65">UnicodeEscapeSequence</text></a></g></g><path d="M307 61a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path></g><path d="M 327 31 h 20 m 0 -10 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">IdentifierStart</span>
+  = <a class="ebnf-non-terminal" href="#IdentifierStartChar">IdentifierStartChar</a>
+  | <span class="ebnf-terminal">"\"</span> , <a class="ebnf-non-terminal" href="#UnicodeEscapeSequence">UnicodeEscapeSequence</a>
+  <span class="ebnf-end">;</span></code>
+  <p>Items referencing <strong>IdentifierStart</strong>:<p>
+<ul>
+<li><a href="#Identifier">Identifier</a></li>
+</ul>
+  <p><strong>IdentifierStart</strong> is referencing:<p>
+<ul>
+<li><a href="#IdentifierStartChar">IdentifierStartChar</a></li><li><a href="#UnicodeEscapeSequence">UnicodeEscapeSequence</a></li>
+</ul>
+</section>
+<section>
+  <h4 id="IdentifierStartChar">IdentifierStartChar</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="259" style="max-height: 122px;" viewBox="0 0 259 122"><g transform="translate(.5 .5)"><g><path d="M20 21v20m0 -10h20"></path></g><g><path d="M40 31h0"></path><path d="M219 31h0"></path><path d="M40 31h20"></path><g class="non-terminal"><path d="M60 31h0"></path><path d="M199 31h0"></path><rect x="60" y="20" width="139" height="22"></rect><a xlink:href="#UnicodeIDStart"><text x="129.5" y="35">UnicodeIDStart</text></a></g><path d="M199 31h20"></path><path d="M40 31a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M60 61h55.25"></path><path d="M143.75 61h55.25"></path><rect x="115.25" y="50" width="28.5" height="22" rx="10" ry="10"></rect><text x="129.5" y="65">$</text></g><path d="M199 61a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path><path d="M40 31a10 10 0 0 1 10 10v40a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M60 91h55.25"></path><path d="M143.75 91h55.25"></path><rect x="115.25" y="80" width="28.5" height="22" rx="10" ry="10"></rect><text x="129.5" y="95">&#95;</text></g><path d="M199 91a10 10 0 0 0 10 -10v-40a10 10 0 0 1 10 -10"></path></g><path d="M 219 31 h 20 m 0 -10 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">IdentifierStartChar</span> = <a class="ebnf-non-terminal" href="#UnicodeIDStart">UnicodeIDStart</a> | <span class="ebnf-terminal">"$"</span> | <span class="ebnf-terminal">"_"</span> <span class="ebnf-end">;</span></code>
+  <p>Items referencing <strong>IdentifierStartChar</strong>:<p>
+<ul>
+<li><a href="#IdentifierStart">IdentifierStart</a></li>
+</ul>
+  <p><strong>IdentifierStartChar</strong> is referencing:<p>
+<ul>
+<li><a href="#UnicodeIDStart">UnicodeIDStart</a></li>
+</ul>
+</section>
+<section>
+  <h4 id="IdentifierContinue">IdentifierContinue</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="367" style="max-height: 92px;" viewBox="0 0 367 92"><g transform="translate(.5 .5)"><g><path d="M20 21v20m0 -10h20"></path></g><g><path d="M40 31h0"></path><path d="M327 31h0"></path><path d="M40 31h20"></path><g class="non-terminal"><path d="M60 31h20"></path><path d="M287 31h20"></path><rect x="80" y="20" width="207" height="22"></rect><a xlink:href="#IdentifierContinueChar"><text x="183.5" y="35">IdentifierContinueChar</text></a></g><path d="M307 31h20"></path><path d="M40 31a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path><g><path d="M60 61h0"></path><path d="M307 61h0"></path><g class="terminal"><path d="M60 61h0"></path><path d="M88.5 61h0"></path><rect x="60" y="50" width="28.5" height="22" rx="10" ry="10"></rect><text x="74.25" y="65">\</text></g><path d="M88.5 61h10"></path><path d="M98.5 61h10"></path><g class="non-terminal"><path d="M108.5 61h0"></path><path d="M307 61h0"></path><rect x="108.5" y="50" width="198.5" height="22"></rect><a xlink:href="#UnicodeEscapeSequence"><text x="207.75" y="65">UnicodeEscapeSequence</text></a></g></g><path d="M307 61a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path></g><path d="M 327 31 h 20 m 0 -10 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">IdentifierContinue</span>
+  = <a class="ebnf-non-terminal" href="#IdentifierContinueChar">IdentifierContinueChar</a>
+  | <span class="ebnf-terminal">"\"</span> , <a class="ebnf-non-terminal" href="#UnicodeEscapeSequence">UnicodeEscapeSequence</a>
+  <span class="ebnf-end">;</span></code>
+  <p>Items referencing <strong>IdentifierContinue</strong>:<p>
+<ul>
+<li><a href="#Identifier">Identifier</a></li>
+</ul>
+  <p><strong>IdentifierContinue</strong> is referencing:<p>
+<ul>
+<li><a href="#IdentifierContinueChar">IdentifierContinueChar</a></li><li><a href="#UnicodeEscapeSequence">UnicodeEscapeSequence</a></li>
+</ul>
+</section>
+<section>
+  <h4 id="IdentifierContinueChar">IdentifierContinueChar</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="284.5" style="max-height: 152px;" viewBox="0 0 284.5 152"><g transform="translate(.5 .5)"><g><path d="M20 21v20m0 -10h20"></path></g><g><path d="M40 31h0"></path><path d="M244.5 31h0"></path><path d="M40 31h20"></path><g class="non-terminal"><path d="M60 31h0"></path><path d="M224.5 31h0"></path><rect x="60" y="20" width="164.5" height="22"></rect><a xlink:href="#UnicodeIDContinue"><text x="142.25" y="35">UnicodeIDContinue</text></a></g><path d="M224.5 31h20"></path><path d="M40 31a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M60 61h68"></path><path d="M156.5 61h68"></path><rect x="128" y="50" width="28.5" height="22" rx="10" ry="10"></rect><text x="142.25" y="65">$</text></g><path d="M224.5 61a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path><path d="M40 31a10 10 0 0 1 10 10v40a10 10 0 0 0 10 10"></path><g class="non-terminal"><path d="M60 91h55.25"></path><path d="M169.25 91h55.25"></path><rect x="115.25" y="80" width="54" height="22"></rect><a xlink:href="#ZWNJ"><text x="142.25" y="95">ZWNJ</text></a></g><path d="M224.5 91a10 10 0 0 0 10 -10v-40a10 10 0 0 1 10 -10"></path><path d="M40 31a10 10 0 0 1 10 10v70a10 10 0 0 0 10 10"></path><g class="non-terminal"><path d="M60 121h59.5"></path><path d="M165 121h59.5"></path><rect x="119.5" y="110" width="45.5" height="22"></rect><a xlink:href="#ZWJ"><text x="142.25" y="125">ZWJ</text></a></g><path d="M224.5 121a10 10 0 0 0 10 -10v-70a10 10 0 0 1 10 -10"></path></g><path d="M 244.5 31 h 20 m 0 -10 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">IdentifierContinueChar</span> = <a class="ebnf-non-terminal" href="#UnicodeIDContinue">UnicodeIDContinue</a> | <span class="ebnf-terminal">"$"</span> | <a class="ebnf-non-terminal" href="#ZWNJ">ZWNJ</a> | <a class="ebnf-non-terminal" href="#ZWJ">ZWJ</a> <span class="ebnf-end">;</span></code>
+  <p>Items referencing <strong>IdentifierContinueChar</strong>:<p>
+<ul>
+<li><a href="#IdentifierContinue">IdentifierContinue</a></li>
+</ul>
+  <p><strong>IdentifierContinueChar</strong> is referencing:<p>
+<ul>
+<li><a href="#UnicodeIDContinue">UnicodeIDContinue</a></li><li><a href="#ZWNJ">ZWNJ</a></li><li><a href="#ZWJ">ZWJ</a></li>
+</ul>
+</section>
+<section>
+  <h4 id="UnicodeIDStart">UnicodeIDStart</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="638.5" style="max-height: 62px;" viewBox="0 0 638.5 62"><g transform="translate(.5 .5)"><g><path d="M20 21v20m10 -20v20m-10 -10h20"></path></g><path d="M40 31h10"></path><g class="special-sequence"><path d="M50 31h0"></path><path d="M588.5 31h0"></path><rect x="50" y="20" width="538.5" height="22"></rect><text x="319.25" y="35"> any Unicode code point with the Unicode property “ID&#95;Start” </text></g><path d="M588.5 31h10"></path><path d="M 598.5 31 h 20 m -10 -10 v 20 m 10 -20 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">UnicodeIDStart</span> = <span class="ebnf-special-sequence">? any Unicode code point with the Unicode property “ID_Start” ?</span> <span class="ebnf-end">;</span></code>
+  <p>Items referencing <strong>UnicodeIDStart</strong>:<p>
+<ul>
+<li><a href="#IdentifierStartChar">IdentifierStartChar</a></li>
+</ul>
+</section>
+<section>
+  <h4 id="UnicodeIDContinue">UnicodeIDContinue</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="664" style="max-height: 62px;" viewBox="0 0 664 62"><g transform="translate(.5 .5)"><g><path d="M20 21v20m10 -20v20m-10 -10h20"></path></g><path d="M40 31h10"></path><g class="special-sequence"><path d="M50 31h0"></path><path d="M614 31h0"></path><rect x="50" y="20" width="564" height="22"></rect><text x="332" y="35"> any Unicode code point with the Unicode property “ID&#95;Continue” </text></g><path d="M614 31h10"></path><path d="M 624 31 h 20 m -10 -10 v 20 m 10 -20 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">UnicodeIDContinue</span> = <span class="ebnf-special-sequence">? any Unicode code point with the Unicode property “ID_Continue” ?</span> <span class="ebnf-end">;</span></code>
+  <p>Items referencing <strong>UnicodeIDContinue</strong>:<p>
+<ul>
+<li><a href="#IdentifierContinueChar">IdentifierContinueChar</a></li>
+</ul>
+</section>
+<section>
+  <h4 id="SourceCharacter">SourceCharacter</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="315.5" style="max-height: 62px;" viewBox="0 0 315.5 62"><g transform="translate(.5 .5)"><g><path d="M20 21v20m10 -20v20m-10 -10h20"></path></g><path d="M40 31h10"></path><g class="special-sequence"><path d="M50 31h0"></path><path d="M265.5 31h0"></path><rect x="50" y="20" width="215.5" height="22"></rect><text x="157.75" y="35"> any unicode character </text></g><path d="M265.5 31h10"></path><path d="M 275.5 31 h 20 m -10 -10 v 20 m 10 -20 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">SourceCharacter</span> = <span class="ebnf-special-sequence">? any unicode character ?</span> <span class="ebnf-end">;</span></code>
+</section>
+<section>
+  <h4 id="Regular-Expression-Literal">Regular Expression Literal</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="358" style="max-height: 62px;" viewBox="0 0 358 62"><g transform="translate(.5 .5)"><g><path d="M20 21v20m10 -20v20m-10 -10h20"></path></g><path d="M40 31h10"></path><g class="special-sequence"><path d="M50 31h0"></path><path d="M308 31h0"></path><rect x="50" y="20" width="258" height="22"></rect><text x="179" y="35"> regular expression literal </text></g><path d="M308 31h10"></path><path d="M 318 31 h 20 m -10 -10 v 20 m 10 -20 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">Regular Expression Literal</span> = <span class="ebnf-special-sequence">? regular expression literal ?</span> <span class="ebnf-end">;</span></code>
+</section>
+<p>ECMA-262: <a href="https://tc39.es/ecma262/#prod-RegularExpressionLiteral">https://tc39.es/ecma262/#prod-RegularExpressionLiteral</a></p><section>
+  <h4 id="String-Literal">String Literal</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="460" style="max-height: 62px;" viewBox="0 0 460 62"><g transform="translate(.5 .5)"><g><path d="M20 21v20m10 -20v20m-10 -10h20"></path></g><path d="M40 31h10"></path><g class="special-sequence"><path d="M50 31h0"></path><path d="M410 31h0"></path><rect x="50" y="20" width="360" height="22"></rect><text x="230" y="35"> single or double-quoted string literal </text></g><path d="M410 31h10"></path><path d="M 420 31 h 20 m -10 -10 v 20 m 10 -20 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">String Literal</span> = <span class="ebnf-special-sequence">? single or double-quoted string literal ?</span> <span class="ebnf-end">;</span></code>
+  <p>Items referencing <strong>String Literal</strong>:<p>
+<ul>
+<li><a href="#Token">Token</a></li>
+</ul>
+</section>
+<p>ECMA-262: <a href="https://tc39.es/ecma262/#prod-StringLiteral">https://tc39.es/ecma262/#prod-StringLiteral</a></p><section>
+  <h4 id="Template-Literal">Template Literal</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="383.5" style="max-height: 62px;" viewBox="0 0 383.5 62"><g transform="translate(.5 .5)"><g><path d="M20 21v20m10 -20v20m-10 -10h20"></path></g><path d="M40 31h10"></path><g class="special-sequence"><path d="M50 31h0"></path><path d="M333.5 31h0"></path><rect x="50" y="20" width="283.5" height="22"></rect><text x="191.75" y="35"> a JavaScript template literal </text></g><path d="M333.5 31h10"></path><path d="M 343.5 31 h 20 m -10 -10 v 20 m 10 -20 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">Template Literal</span> = <span class="ebnf-special-sequence">? a JavaScript template literal ?</span> <span class="ebnf-end">;</span></code>
+  <p>Items referencing <strong>Template Literal</strong>:<p>
+<ul>
+<li><a href="#Token">Token</a></li>
+</ul>
+</section>
+<p>ECMA-262: <a href="https://tc39.es/ecma262/#prod-StringLiteral">https://tc39.es/ecma262/#prod-StringLiteral</a></p><section>
+  <h4 id="Number">Number</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="256" style="max-height: 62px;" viewBox="0 0 256 62"><g transform="translate(.5 .5)"><g><path d="M20 21v20m10 -20v20m-10 -10h20"></path></g><path d="M40 31h10"></path><g class="special-sequence"><path d="M50 31h0"></path><path d="M206 31h0"></path><rect x="50" y="20" width="156" height="22"></rect><text x="128" y="35"> NumericLiteral </text></g><path d="M206 31h10"></path><path d="M 216 31 h 20 m -10 -10 v 20 m 10 -20 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">Number</span> = <span class="ebnf-special-sequence">? NumericLiteral ?</span> <span class="ebnf-end">;</span></code>
+  <p>Items referencing <strong>Number</strong>:<p>
+<ul>
+<li><a href="#Word">Word</a></li>
+</ul>
+</section>
+<p>ECMA-262: <a href="https://tc39.es/ecma262/#prod-NumericLiteral">https://tc39.es/ecma262/#prod-NumericLiteral</a></p><section>
+  <h4 id="Whitespace">Whitespace</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="667" style="max-height: 182px;" viewBox="0 0 667 182"><g transform="translate(.5 .5)"><g><path d="M20 21v20m10 -20v20m-10 -10h20"></path></g><g><path d="M40 31h0"></path><path d="M627 31h0"></path><path d="M40 31h20"></path><g class="special-sequence"><path d="M60 31h114.75"></path><path d="M492.25 31h114.75"></path><rect x="174.75" y="20" width="317.5" height="22"></rect><text x="333.5" y="35"> U+0009 CHARACTER TABULATION (TAB) </text></g><path d="M607 31h20"></path><path d="M40 31a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path><g class="special-sequence"><path d="M60 61h140.25"></path><path d="M466.75 61h140.25"></path><rect x="200.25" y="50" width="266.5" height="22"></rect><text x="333.5" y="65"> U+000B LINE TABULATION (VT) </text></g><path d="M607 61a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path><path d="M40 31a10 10 0 0 1 10 10v40a10 10 0 0 0 10 10"></path><g class="special-sequence"><path d="M60 91h165.75"></path><path d="M441.25 91h165.75"></path><rect x="225.75" y="80" width="215.5" height="22"></rect><text x="333.5" y="95"> U+000C FORM FEED (FF) </text></g><path d="M607 91a10 10 0 0 0 10 -10v-40a10 10 0 0 1 10 -10"></path><path d="M40 31a10 10 0 0 1 10 10v70a10 10 0 0 0 10 10"></path><g class="special-sequence"><path d="M60 121h80.75"></path><path d="M526.25 121h80.75"></path><rect x="140.75" y="110" width="385.5" height="22"></rect><text x="333.5" y="125"> U+FEFF ZERO WIDTH NO-BREAK SPACE (ZWNBSP) </text></g><path d="M607 121a10 10 0 0 0 10 -10v-70a10 10 0 0 1 10 -10"></path><path d="M40 31a10 10 0 0 1 10 10v100a10 10 0 0 0 10 10"></path><g class="special-sequence"><path d="M60 151h0"></path><path d="M607 151h0"></path><rect x="60" y="140" width="547" height="22"></rect><text x="333.5" y="155"> "Category Zs" Any Unicode "Space&#95;Separator code point" (USP) </text></g><path d="M607 151a10 10 0 0 0 10 -10v-100a10 10 0 0 1 10 -10"></path></g><path d="M 627 31 h 20 m -10 -10 v 20 m 10 -20 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">Whitespace</span>
+  = <span class="ebnf-special-sequence">? U+0009 CHARACTER TABULATION (TAB) ?</span>
+  | <span class="ebnf-special-sequence">? U+000B LINE TABULATION (VT) ?</span>
+  | <span class="ebnf-special-sequence">? U+000C FORM FEED (FF) ?</span>
+  | <span class="ebnf-special-sequence">? U+FEFF ZERO WIDTH NO-BREAK SPACE (ZWNBSP) ?</span>
+  | <span class="ebnf-special-sequence">? "Category Zs" Any Unicode "Space_Separator code point" (USP) ?</span>
+  <span class="ebnf-end">;</span></code>
+  <p>Items referencing <strong>Whitespace</strong>:<p>
+<ul>
+<li><a href="#Token">Token</a></li>
+</ul>
+</section>
+<p>ECMA-262: <a href="https://tc39.es/ecma262/#prod-WhiteSpace">https://tc39.es/ecma262/#prod-WhiteSpace</a></p>
+<blockquote>
+  <p>Other than for the code points listed in Table 38, ECMAScript WhiteSpace intentionally excludes all code points that have the Unicode “White<em>Space” property but which are not classified in category “Space</em>Separator” (“Zs”).</p>
+</blockquote><section>
+  <h4 id="Line-Terminator">Line Terminator</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="420.5" style="max-height: 152px;" viewBox="0 0 420.5 152"><g transform="translate(.5 .5)"><g><path d="M20 21v20m10 -20v20m-10 -10h20"></path></g><g><path d="M40 31h0"></path><path d="M380.5 31h0"></path><path d="M40 31h20"></path><g class="special-sequence"><path d="M60 31h42.5"></path><path d="M318 31h42.5"></path><rect x="102.5" y="20" width="215.5" height="22"></rect><text x="210.25" y="35"> U+000A LINE FEED (LF) </text></g><path d="M360.5 31h20"></path><path d="M40 31a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path><g class="special-sequence"><path d="M60 61h17"></path><path d="M343.5 61h17"></path><rect x="77" y="50" width="266.5" height="22"></rect><text x="210.25" y="65"> U+000D CARRIAGE RETURN (CR) </text></g><path d="M360.5 61a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path><path d="M40 31a10 10 0 0 1 10 10v40a10 10 0 0 0 10 10"></path><g class="special-sequence"><path d="M60 91h21.25"></path><path d="M339.25 91h21.25"></path><rect x="81.25" y="80" width="258" height="22"></rect><text x="210.25" y="95"> U+2028 LINE SEPARATOR (LS) </text></g><path d="M360.5 91a10 10 0 0 0 10 -10v-40a10 10 0 0 1 10 -10"></path><path d="M40 31a10 10 0 0 1 10 10v70a10 10 0 0 0 10 10"></path><g class="special-sequence"><path d="M60 121h0"></path><path d="M360.5 121h0"></path><rect x="60" y="110" width="300.5" height="22"></rect><text x="210.25" y="125"> U+2029 PARAGRAPH SEPARATOR (PS) </text></g><path d="M360.5 121a10 10 0 0 0 10 -10v-70a10 10 0 0 1 10 -10"></path></g><path d="M 380.5 31 h 20 m -10 -10 v 20 m 10 -20 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">Line Terminator</span>
+  = <span class="ebnf-special-sequence">? U+000A LINE FEED (LF) ?</span>
+  | <span class="ebnf-special-sequence">? U+000D CARRIAGE RETURN (CR) ?</span>
+  | <span class="ebnf-special-sequence">? U+2028 LINE SEPARATOR (LS) ?</span>
+  | <span class="ebnf-special-sequence">? U+2029 PARAGRAPH SEPARATOR (PS) ?</span>
+  <span class="ebnf-end">;</span></code>
+  <p>Items referencing <strong>Line Terminator</strong>:<p>
+<ul>
+<li><a href="#Token">Token</a></li>
+</ul>
+</section>
+<p>ECMA-262: <a href="https://tc39.es/ecma262/#sec-line-terminators">https://tc39.es/ecma262/#sec-line-terminators</a> </p><section>
+  <h4 id="ZWNJ">ZWNJ</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="375" style="max-height: 62px;" viewBox="0 0 375 62"><g transform="translate(.5 .5)"><g><path d="M20 21v20m10 -20v20m-10 -10h20"></path></g><path d="M40 31h10"></path><g class="special-sequence"><path d="M50 31h0"></path><path d="M325 31h0"></path><rect x="50" y="20" width="275" height="22"></rect><text x="187.5" y="35"> U+200C ZERO WIDTH NON-JOINER </text></g><path d="M325 31h10"></path><path d="M 335 31 h 20 m -10 -10 v 20 m 10 -20 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">ZWNJ</span> = <span class="ebnf-special-sequence">? U+200C ZERO WIDTH NON-JOINER ?</span> <span class="ebnf-end">;</span></code>
+  <p>Items referencing <strong>ZWNJ</strong>:<p>
+<ul>
+<li><a href="#IdentifierContinueChar">IdentifierContinueChar</a></li>
+</ul>
+</section>
+<section>
+  <h4 id="ZWJ">ZWJ</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="341" style="max-height: 62px;" viewBox="0 0 341 62"><g transform="translate(.5 .5)"><g><path d="M20 21v20m10 -20v20m-10 -10h20"></path></g><path d="M40 31h10"></path><g class="special-sequence"><path d="M50 31h0"></path><path d="M291 31h0"></path><rect x="50" y="20" width="241" height="22"></rect><text x="170.5" y="35"> U+200D ZERO WIDTH JOINER </text></g><path d="M291 31h10"></path><path d="M 301 31 h 20 m -10 -10 v 20 m 10 -20 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">ZWJ</span> = <span class="ebnf-special-sequence">? U+200D ZERO WIDTH JOINER ?</span> <span class="ebnf-end">;</span></code>
+  <p>Items referencing <strong>ZWJ</strong>:<p>
+<ul>
+<li><a href="#IdentifierContinueChar">IdentifierContinueChar</a></li>
+</ul>
+</section>
+<section>
+  <h4 id="UnicodeEscapeSequence">UnicodeEscapeSequence</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="600.5" style="max-height: 92px;" viewBox="0 0 600.5 92"><g transform="translate(.5 .5)"><g><path d="M20 21v20m0 -10h20"></path></g><g><path d="M40 31h0"></path><path d="M560.5 31h0"></path><path d="M40 31h20"></path><g><path d="M60 31h0"></path><g><path d="M60 31h10"></path><path d="M530.5 31h10"></path><g class="terminal"><path d="M70 31h0"></path><path d="M98.5 31h0"></path><rect x="70" y="20" width="28.5" height="22" rx="10" ry="10"></rect><text x="84.25" y="35">u</text></g><path d="M98.5 31h10"></path><path d="M108.5 31h10"></path><g class="non-terminal"><path d="M118.5 31h0"></path><path d="M206.5 31h0"></path><rect x="118.5" y="20" width="88" height="22"></rect><a xlink:href="#HexDigit"><text x="162.5" y="35">HexDigit</text></a></g><path d="M206.5 31h10"></path><path d="M216.5 31h10"></path><g class="non-terminal"><path d="M226.5 31h0"></path><path d="M314.5 31h0"></path><rect x="226.5" y="20" width="88" height="22"></rect><a xlink:href="#HexDigit"><text x="270.5" y="35">HexDigit</text></a></g><path d="M314.5 31h10"></path><path d="M324.5 31h10"></path><g class="non-terminal"><path d="M334.5 31h0"></path><path d="M422.5 31h0"></path><rect x="334.5" y="20" width="88" height="22"></rect><a xlink:href="#HexDigit"><text x="378.5" y="35">HexDigit</text></a></g><path d="M422.5 31h10"></path><path d="M432.5 31h10"></path><g class="non-terminal"><path d="M442.5 31h0"></path><path d="M530.5 31h0"></path><rect x="442.5" y="20" width="88" height="22"></rect><a xlink:href="#HexDigit"><text x="486.5" y="35">HexDigit</text></a></g></g><path d="M540.5 31h0"></path></g><path d="M540.5 31h20"></path><path d="M40 31a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path><g><path d="M60 61h139.25"></path><path d="M401.25 61h139.25"></path><g class="terminal"><path d="M199.25 61h0"></path><path d="M236.25 61h0"></path><rect x="199.25" y="50" width="37" height="22" rx="10" ry="10"></rect><text x="217.75" y="65">u{</text></g><path d="M236.25 61h10"></path><path d="M246.25 61h10"></path><g class="non-terminal"><path d="M256.25 61h0"></path><path d="M352.75 61h0"></path><rect x="256.25" y="50" width="96.5" height="22"></rect><a xlink:href="#CodePoint"><text x="304.5" y="65">CodePoint</text></a></g><path d="M352.75 61h10"></path><path d="M362.75 61h10"></path><g class="terminal"><path d="M372.75 61h0"></path><path d="M401.25 61h0"></path><rect x="372.75" y="50" width="28.5" height="22" rx="10" ry="10"></rect><text x="387" y="65">}</text></g></g><path d="M540.5 61a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path></g><path d="M 560.5 31 h 20 m 0 -10 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">UnicodeEscapeSequence</span>
+  = <span class="ebnf-terminal">"u"</span> , <a class="ebnf-non-terminal" href="#HexDigit">HexDigit</a> , <a class="ebnf-non-terminal" href="#HexDigit">HexDigit</a> , <a class="ebnf-non-terminal" href="#HexDigit">HexDigit</a> , <a class="ebnf-non-terminal" href="#HexDigit">HexDigit</a>
+  | <span class="ebnf-terminal">"u{"</span> , <a class="ebnf-non-terminal" href="#CodePoint">CodePoint</a> , <span class="ebnf-terminal">"}"</span>
+  <span class="ebnf-end">;</span></code>
+  <p>Items referencing <strong>UnicodeEscapeSequence</strong>:<p>
+<ul>
+<li><a href="#IdentifierStart">IdentifierStart</a></li><li><a href="#IdentifierContinue">IdentifierContinue</a></li>
+</ul>
+  <p><strong>UnicodeEscapeSequence</strong> is referencing:<p>
+<ul>
+<li><a href="#HexDigit">HexDigit</a></li><li><a href="#CodePoint">CodePoint</a></li>
+</ul>
+</section>
+<section>
+  <h4 id="CodePoint">CodePoint</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="596" style="max-height: 62px;" viewBox="0 0 596 62"><g transform="translate(.5 .5)"><g><path d="M20 21v20m10 -20v20m-10 -10h20"></path></g><path d="M40 31h10"></path><g class="special-sequence"><path d="M50 31h0"></path><path d="M546 31h0"></path><rect x="50" y="20" width="496" height="22"></rect><text x="298" y="35"> HexDigits&#91;~Sep&#93; but only if MV of HexDigits ≤ 0x10FFFF </text></g><path d="M546 31h10"></path><path d="M 556 31 h 20 m -10 -10 v 20 m 10 -20 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">CodePoint</span> = <span class="ebnf-special-sequence">? HexDigits[~Sep] but only if MV of HexDigits ≤ 0x10FFFF ?</span> <span class="ebnf-end">;</span></code>
+  <p>Items referencing <strong>CodePoint</strong>:<p>
+<ul>
+<li><a href="#UnicodeEscapeSequence">UnicodeEscapeSequence</a></li>
+</ul>
+</section>
+<p>ECMA-262: <a href="https://tc39.es/ecma262/#prod-CodePoint">https://tc39.es/ecma262/#prod-CodePoint</a></p><section>
+  <h4 id="HexDigit">HexDigit</h4>
+  <div class="diagram-container"><svg class="railroad-diagram" width="345.5" style="max-height: 349px;" viewBox="0 0 345.5 349"><g transform="translate(.5 .5)"><g><path d="M20 30v20m10 -20v20m-10 -10h20"></path></g><g><path d="M40 40h0"></path><path d="M305.5 40h0"></path><path d="M40 40a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10h147"></path><path d="M138.5 329h147a10 10 0 0 0 10 -10v-269a10 10 0 0 1 10 -10"></path><path d="M40 40h10"></path><g><path d="M50 40h0"></path><path d="M118.5 40h0"></path><path d="M50 40h20"></path><g class="terminal"><path d="M70 40h0"></path><path d="M98.5 40h0"></path><rect x="70" y="29" width="28.5" height="22" rx="10" ry="10"></rect><text x="84.25" y="44">0</text></g><path d="M98.5 40h20"></path><path d="M50 40a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M70 70h0"></path><path d="M98.5 70h0"></path><rect x="70" y="59" width="28.5" height="22" rx="10" ry="10"></rect><text x="84.25" y="74">1</text></g><path d="M98.5 70a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path><path d="M50 40a10 10 0 0 1 10 10v40a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M70 100h0"></path><path d="M98.5 100h0"></path><rect x="70" y="89" width="28.5" height="22" rx="10" ry="10"></rect><text x="84.25" y="104">2</text></g><path d="M98.5 100a10 10 0 0 0 10 -10v-40a10 10 0 0 1 10 -10"></path><path d="M50 40a10 10 0 0 1 10 10v70a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M70 130h0"></path><path d="M98.5 130h0"></path><rect x="70" y="119" width="28.5" height="22" rx="10" ry="10"></rect><text x="84.25" y="134">3</text></g><path d="M98.5 130a10 10 0 0 0 10 -10v-70a10 10 0 0 1 10 -10"></path><path d="M50 40a10 10 0 0 1 10 10v100a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M70 160h0"></path><path d="M98.5 160h0"></path><rect x="70" y="149" width="28.5" height="22" rx="10" ry="10"></rect><text x="84.25" y="164">4</text></g><path d="M98.5 160a10 10 0 0 0 10 -10v-100a10 10 0 0 1 10 -10"></path><path d="M50 40a10 10 0 0 1 10 10v130a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M70 190h0"></path><path d="M98.5 190h0"></path><rect x="70" y="179" width="28.5" height="22" rx="10" ry="10"></rect><text x="84.25" y="194">5</text></g><path d="M98.5 190a10 10 0 0 0 10 -10v-130a10 10 0 0 1 10 -10"></path><path d="M50 40a10 10 0 0 1 10 10v160a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M70 220h0"></path><path d="M98.5 220h0"></path><rect x="70" y="209" width="28.5" height="22" rx="10" ry="10"></rect><text x="84.25" y="224">6</text></g><path d="M98.5 220a10 10 0 0 0 10 -10v-160a10 10 0 0 1 10 -10"></path><path d="M50 40a10 10 0 0 1 10 10v190a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M70 250h0"></path><path d="M98.5 250h0"></path><rect x="70" y="239" width="28.5" height="22" rx="10" ry="10"></rect><text x="84.25" y="254">7</text></g><path d="M98.5 250a10 10 0 0 0 10 -10v-190a10 10 0 0 1 10 -10"></path><path d="M50 40a10 10 0 0 1 10 10v220a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M70 280h0"></path><path d="M98.5 280h0"></path><rect x="70" y="269" width="28.5" height="22" rx="10" ry="10"></rect><text x="84.25" y="284">8</text></g><path d="M98.5 280a10 10 0 0 0 10 -10v-220a10 10 0 0 1 10 -10"></path><path d="M50 40a10 10 0 0 1 10 10v250a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M70 310h0"></path><path d="M98.5 310h0"></path><rect x="70" y="299" width="28.5" height="22" rx="10" ry="10"></rect><text x="84.25" y="314">9</text></g><path d="M98.5 310a10 10 0 0 0 10 -10v-250a10 10 0 0 1 10 -10"></path></g><path d="M118.5 40a10 10 0 0 1 10 10v269a10 10 0 0 0 10 10"></path><path d="M118.5 20a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path><g><path d="M138.5 40h0"></path><path d="M207 40h0"></path><path d="M138.5 40h20"></path><g class="terminal"><path d="M158.5 40h0"></path><path d="M187 40h0"></path><rect x="158.5" y="29" width="28.5" height="22" rx="10" ry="10"></rect><text x="172.75" y="44">A</text></g><path d="M187 40h20"></path><path d="M138.5 40a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M158.5 70h0"></path><path d="M187 70h0"></path><rect x="158.5" y="59" width="28.5" height="22" rx="10" ry="10"></rect><text x="172.75" y="74">B</text></g><path d="M187 70a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path><path d="M138.5 40a10 10 0 0 1 10 10v40a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M158.5 100h0"></path><path d="M187 100h0"></path><rect x="158.5" y="89" width="28.5" height="22" rx="10" ry="10"></rect><text x="172.75" y="104">C</text></g><path d="M187 100a10 10 0 0 0 10 -10v-40a10 10 0 0 1 10 -10"></path><path d="M138.5 40a10 10 0 0 1 10 10v70a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M158.5 130h0"></path><path d="M187 130h0"></path><rect x="158.5" y="119" width="28.5" height="22" rx="10" ry="10"></rect><text x="172.75" y="134">D</text></g><path d="M187 130a10 10 0 0 0 10 -10v-70a10 10 0 0 1 10 -10"></path><path d="M138.5 40a10 10 0 0 1 10 10v100a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M158.5 160h0"></path><path d="M187 160h0"></path><rect x="158.5" y="149" width="28.5" height="22" rx="10" ry="10"></rect><text x="172.75" y="164">E</text></g><path d="M187 160a10 10 0 0 0 10 -10v-100a10 10 0 0 1 10 -10"></path><path d="M138.5 40a10 10 0 0 1 10 10v130a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M158.5 190h0"></path><path d="M187 190h0"></path><rect x="158.5" y="179" width="28.5" height="22" rx="10" ry="10"></rect><text x="172.75" y="194">F</text></g><path d="M187 190a10 10 0 0 0 10 -10v-130a10 10 0 0 1 10 -10"></path><path d="M138.5 40a10 10 0 0 1 10 10v160a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M158.5 220h0"></path><path d="M187 220h0"></path><rect x="158.5" y="209" width="28.5" height="22" rx="10" ry="10"></rect><text x="172.75" y="224">a</text></g><path d="M187 220a10 10 0 0 0 10 -10v-160a10 10 0 0 1 10 -10"></path><path d="M138.5 40a10 10 0 0 1 10 10v190a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M158.5 250h0"></path><path d="M187 250h0"></path><rect x="158.5" y="239" width="28.5" height="22" rx="10" ry="10"></rect><text x="172.75" y="254">b</text></g><path d="M187 250a10 10 0 0 0 10 -10v-190a10 10 0 0 1 10 -10"></path><path d="M138.5 40a10 10 0 0 1 10 10v220a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M158.5 280h0"></path><path d="M187 280h0"></path><rect x="158.5" y="269" width="28.5" height="22" rx="10" ry="10"></rect><text x="172.75" y="284">c</text></g><path d="M187 280a10 10 0 0 0 10 -10v-220a10 10 0 0 1 10 -10"></path><path d="M138.5 40a10 10 0 0 1 10 10v250a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M158.5 310h0"></path><path d="M187 310h0"></path><rect x="158.5" y="299" width="28.5" height="22" rx="10" ry="10"></rect><text x="172.75" y="314">d</text></g><path d="M187 310a10 10 0 0 0 10 -10v-250a10 10 0 0 1 10 -10"></path></g><path d="M207 40a10 10 0 0 1 10 10v269a10 10 0 0 0 10 10"></path><path d="M207 20a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path><g><path d="M227 40h0"></path><path d="M295.5 40h0"></path><path d="M227 40h20"></path><g class="terminal"><path d="M247 40h0"></path><path d="M275.5 40h0"></path><rect x="247" y="29" width="28.5" height="22" rx="10" ry="10"></rect><text x="261.25" y="44">e</text></g><path d="M275.5 40h20"></path><path d="M227 40a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path><g class="terminal"><path d="M247 70h0"></path><path d="M275.5 70h0"></path><rect x="247" y="59" width="28.5" height="22" rx="10" ry="10"></rect><text x="261.25" y="74">f</text></g><path d="M275.5 70a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path></g><path d="M295.5 40h10"></path></g><path d="M 305.5 40 h 20 m -10 -10 v 20 m 10 -20 v 20"></path></g></svg>
+</div>
+  <code class="ebnf"><span class="ebnf-identifier">HexDigit</span>
+  = <span class="ebnf-terminal">"0"</span> | <span class="ebnf-terminal">"1"</span> | <span class="ebnf-terminal">"2"</span> | <span class="ebnf-terminal">"3"</span> | <span class="ebnf-terminal">"4"</span> | <span class="ebnf-terminal">"5"</span> | <span class="ebnf-terminal">"6"</span>
+  | <span class="ebnf-terminal">"7"</span> | <span class="ebnf-terminal">"8"</span> | <span class="ebnf-terminal">"9"</span> | <span class="ebnf-terminal">"A"</span> | <span class="ebnf-terminal">"B"</span> | <span class="ebnf-terminal">"C"</span> | <span class="ebnf-terminal">"D"</span>
+  | <span class="ebnf-terminal">"E"</span> | <span class="ebnf-terminal">"F"</span> | <span class="ebnf-terminal">"a"</span> | <span class="ebnf-terminal">"b"</span> | <span class="ebnf-terminal">"c"</span> | <span class="ebnf-terminal">"d"</span> | <span class="ebnf-terminal">"e"</span>
+  | <span class="ebnf-terminal">"f"</span>
+  <span class="ebnf-end">;</span></code>
+  <p>Items referencing <strong>HexDigit</strong>:<p>
+<ul>
+<li><a href="#UnicodeEscapeSequence">UnicodeEscapeSequence</a></li>
+</ul>
+</section>
+<p>ECMA-262: <a href="https://tc39.es/ecma262/#prod-HexDigit">https://tc39.es/ecma262/#prod-HexDigit</a></p>
+  </article>
+  <footer>
+    <p>Date: 2022-04-22T19:36 - <a href="?theme=dark" data-theme="dark">Dark</a> - <a href="?theme=light" data-theme="light">Light</a></p>
+  </footer>
+  </main>
+  <script type="text/javascript">
+    document.querySelector("header button").addEventListener("click", function() {
+      document.getElementsByTagName("html")[0].classList.toggle("menu-open");
+    });
+    document.querySelector("nav").addEventListener("click", function(event) {
+      if (event.target.tagName !== "A") return;
+      htmlTag.classList.remove("menu-open");
+    });
+    document.querySelectorAll("footer a").forEach(element =>
+      element.addEventListener("click", function(event) {
+        event.preventDefault();
+        const theme = event.target.getAttribute("data-theme");
+        const remove = Array.from(htmlTag.classList).filter(className => className.startsWith("theme-"));
+        remove.forEach(name => htmlTag.classList.remove(name));
+        htmlTag.classList.add("theme-" + theme);
+      })
+    );
+  </script>
+
+</body>
+</html>

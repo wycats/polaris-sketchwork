@@ -1,0 +1,401 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>#match Control Flow - Polaris Design Sketches</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="proposals.html"><strong aria-hidden="true">1.</strong> Proposals</a></li><li class="chapter-item expanded "><a href="reactivity.html"><strong aria-hidden="true">2.</strong> Polaris Reactivity</a></li><li class="chapter-item expanded "><a href="match.html" class="active"><strong aria-hidden="true">3.</strong> #match Control Flow</a></li><li class="chapter-item expanded "><a href="routing.html"><strong aria-hidden="true">4.</strong> Routing</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Polaris Design Sketches</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <p>The <code>#match</code> feature makes it possible to match an instance of an enumeration (an object with a string <code>type</code> property, and a <code>value</code> property).</p>
+<p>Let's say we have a <code>Contact</code> type, which can either be a <code>telephone</code> type or an <code>email</code> type. In our template, we'd like to match the contact, and use a component based on what type of contact it is.</p>
+<pre><code class="language-js">import EmailContact from &quot;./EmailContact&quot;;
+import TelephoneContact from &quot;./TelephoneContact&quot;;
+import { Component } from &quot;@glimmer/component&quot;;
+
+export default class ContactComponent extends Component {
+  &lt;template&gt;
+    {{#match @contact}}
+      {{:when &quot;telephone&quot; as |number|}}
+        &lt;TelephoneContact @number={{number}} /&gt;
+      {{:when &quot;email&quot; as |email|}}
+        &lt;EmailContact @email={{email}} /&gt;
+    {{/match}}
+  &lt;/template&gt;
+}
+</code></pre>
+<p>In TypeScript:</p>
+<pre><code class="language-ts">import EmailContact from &quot;./EmailContact&quot;;
+import TelephoneContact from &quot;./TelephoneContact&quot;;
+import { Component } from &quot;@glimmer/component&quot;;
+
+type Contact =
+  | {
+      type: &quot;telephone&quot;;
+      value: string;
+    }
+  | {
+      type: &quot;email&quot;;
+      value: string;
+    };
+
+interface ContactSignature {
+  Args: {
+    contact: Contact;
+  };
+}
+
+export default class ContactComponent extends Component&lt;{
+  Args: { contact: Contact };
+}&gt; {
+  &lt;template&gt;
+    {{#match @contact}}
+    {{:telephone as |number|}}
+      &lt;TelephoneContact @number={{number}} /&gt;
+    {{:email as |email|}}
+      &lt;EmailContact @email={{email}} /&gt;
+    {{/match}}
+  &lt;/template&gt;
+}
+</code></pre>
+<h3 id="the-default-clause"><a class="header" href="#the-default-clause">The Default Clause</a></h3>
+<p>A <code>#match</code> block can have an <code>else</code> clause. If the <code>#match</code> block is not matched, the <code>else</code> clause is used.</p>
+<h2 id="curly-components-get-named-blocks"><a class="header" href="#curly-components-get-named-blocks">Curly Components Get Named Blocks</a></h2>
+<p>The initial design of the <a href="https://emberjs.github.io/rfcs/0460-yieldable-named-blocks.html">named blocks</a> feature added named blocks to angle-bracket components, but not to curly components (&quot;This RFC does not propose an extension to curly syntax, although a future extension to curly syntax is expected.&quot;)</p>
+<p>The <code>#match</code> syntax is based upon extending named blocks to curly syntax.</p>
+<p>Since angle bracket components landed in Ember, curly components <em>that take a block</em> exist philosophically to model control flow. Handlebars already has an <code>else</code> syntax, and a lot of control flow can be shoehorned into the notion of <code>else</code>. However, <code>#match</code> illustrates that general-purpose control flow cannot always be modelled as a pair of &quot;default&quot; and &quot;else&quot; blocks.</p>
+<p>The semantics of named blocks in curly components are identical to the semantics of named blocks in angle bracket components.</p>
+<p>The syntax of named blocks in curly components aligns with the <code>else</code> syntax, and do not require a closing tag.</p>
+<h3 id="optional-else-clause"><a class="header" href="#optional-else-clause">Optional <code>else</code> Clause</a></h3>
+<p>Named Blocks in curly components can have an optional <code>else</code> clause. This is useful to allow a control-flow construct (like <code>#match</code>) to take an alternative while still allowing the entire space of block names to be used.</p>
+<pre><code class="language-hbs">{{#match @contact}}
+{{:telephone as |number|}}
+  &lt;TelephoneContact @number={{number}} /&gt;
+{{:email as |email|}}
+  &lt;EmailContact @email={{email}} /&gt;
+{{else as |value|}}
+  &lt;p&gt;{{value}}&lt;/p&gt;
+{{/match}}
+</code></pre>
+<h2 id="the-enumeration-format"><a class="header" href="#the-enumeration-format">The Enumeration Format</a></h2>
+<p>The <code>#match</code> syntax takes an instance of an &quot;enumeration&quot; as its argument, and yields a block based on the type of the enumeration.</p>
+<p>An enumeration is an object with:</p>
+<ul>
+<li>a <code>type</code> property, whose value is a string</li>
+<li>an optional <code>value</code> property, with any value</li>
+</ul>
+<h2 id="typescript-support"><a class="header" href="#typescript-support">TypeScript Support</a></h2>
+<p>This feature is based on TypeScript's <a href="https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes-func.html#discriminated-unions">discriminated union</a> feature.</p>
+<p>This means that the <code>#match</code> syntax can be trivially translated to TypeScript.</p>
+<p>Template Syntax:</p>
+<pre><code class="language-hbs">{{#match @contact}}
+  {{:telephone as |number|}}
+    &lt;TelephoneContact @number={{number}} /&gt;
+  {{:email as |email|}}
+    &lt;EmailContact @email={{email}} /&gt;
+{{/match}}
+</code></pre>
+<p>Translated to TypeScript:</p>
+<pre><code class="language-ts">switch (this.args.contact.type) {
+  case &quot;telephone&quot;:
+    TelephoneContact({ number: this.args.contact.value });
+    break;
+  case &quot;email&quot;:
+    EmailContact({ email: this.args.contact.value });
+    break;
+}
+</code></pre>
+<p>When translated this way, the values yielded to the blocks get the correct, narrowed type by TypeScript.</p>
+<h2 id="motivation-asynchronous-data"><a class="header" href="#motivation-asynchronous-data">Motivation: Asynchronous Data</a></h2>
+<p>In the design of Polaris features, we frequently want to model the state of asynchronous data as a reactive data structure.</p>
+<p>This allows <a href="./reactivity.html">resources</a> to use asynchronous loading internally, and expose their status as a reactive value.</p>
+<p>We want to model this as an enumeration:</p>
+<pre><code class="language-ts">type AsyncData&lt;T&gt; =
+  | {
+      type: &quot;loading&quot;;
+    }
+  | {
+      type: &quot;success&quot;;
+      value: T;
+    }
+  | {
+      type: &quot;error&quot;;
+      value: unknown;
+    };
+</code></pre>
+<p>It is, of course, possible to use <code>AsyncData</code> in a template by using <code>#if</code>:</p>
+<pre><code class="language-hbs">{{#if (eq @data.type &quot;loading&quot;)}}
+  &lt;p&gt;Loading...&lt;/p&gt;
+{{else if (eq @data.type &quot;success&quot;)}}
+  &lt;p&gt;Hello {{@data.value.name}}&lt;/p&gt;
+{{else if (eq @data.type &quot;error&quot;)}}
+  &lt;p&gt;Something went wrong: {{@data.value}}&lt;/p&gt;
+{{/if}}
+</code></pre>
+<blockquote>
+<p>💡 This would even narrow correctly in TypeScript, provided that the <code>eq</code> helper is translated to <code>===</code>.</p>
+</blockquote>
+<p>However, this is not ergonomically ideal, in part because it doesn't make it very obvious that <code>@data.value</code> <strong>depends on</strong> <code>@data.type</code>.</p>
+<p>The <code>#match</code> syntax makes this more ergonomic and clearer:</p>
+<pre><code class="language-hbs">{{#match @data}}
+{{:loading}}
+  Loading...
+{{:success as |user|}}
+  &lt;p&gt;Hello {{user.name}}&lt;/p&gt;
+{{:error as |error|}}
+  &lt;p&gt;Something went wrong: {{error}}&lt;/p&gt;
+{{/match}}
+</code></pre>
+<h3 id="debouncing"><a class="header" href="#debouncing">Debouncing</a></h3>
+<p>In the [router] design, we'd like to model the existing model hook in the <code>Route</code> class as a function that returns a <code>Resource&lt;AsyncData&gt;</code>.</p>
+<p>You could specify your loading and error states via <code>#match</code>.</p>
+<h4 id="a-route-today"><a class="header" href="#a-route-today">A Route Today</a></h4>
+<pre><code class="language-ts">import { Route } from &quot;@ember/routing&quot;;
+
+export default class extends Route {
+  async model({ user_id }: { user_id: string }) {
+    const data = await fetch(`/api/users/${user_id}`);
+    return data.json();
+  }
+}
+</code></pre>
+<p>Loading:</p>
+<pre><code class="language-hbs">&lt;Loading /&gt;
+</code></pre>
+<p>Error:</p>
+<pre><code class="language-hbs">Something went wrong...
+</code></pre>
+<p>Loaded:</p>
+<pre><code class="language-hbs">&lt;h1&gt;{{@model.name}}&lt;/h1&gt;
+
+&lt;div class=&quot;user-details&quot;&gt;
+  &lt;p&gt;{{@model.email}}&lt;/p&gt;
+  &lt;p&gt;{{@model.phone}}&lt;/p&gt;
+&lt;/div&gt;
+</code></pre>
+<h4 id="a-polaris-route"><a class="header" href="#a-polaris-route">A Polaris Route</a></h4>
+<pre><code class="language-ts">import { Route } from &quot;@ember/routing&quot;;
+
+export default class extends Route {
+  @use model = resource(() =&gt; RemoteData(`/api/users/${this.params.user_id}`));
+
+  &lt;template&gt;
+    {{#match this.model}}
+    {{:loading}}
+      Loading...
+    {{:error as |error|}}
+      &lt;p&gt;Something went wrong: {{error}}&lt;/p&gt;
+    {{:success as |user|}}
+      &lt;h1&gt;{{user.name}}&lt;/h1&gt;
+
+      &lt;div class=&quot;user-details&quot;&gt;
+        &lt;p&gt;{{user.email}}&lt;/p&gt;
+        &lt;p&gt;{{user.phone}}&lt;/p&gt;
+      &lt;/div&gt;
+    {{/match}}
+  &lt;/template&gt;
+}
+</code></pre>
+<p>In this design:</p>
+<ul>
+<li>The route is a component that gets <code>params</code> from the router.</li>
+<li>The route is not long-lived. When the user navigates away from the route, the
+component is destroyed, like any other route.</li>
+<li>The &quot;model hook&quot; is no longer special. It's simply a resource.</li>
+<li>If the user navigates away from the route, and the <code>RemoteData</code> is still
+active, it is torn down. It was <strong>possible</strong> to model this with the model
+hook, but it basically falls out of making the model a resource and having an
+idiomatic <code>RemoteData</code>.</li>
+</ul>
+<p>In this example, we don't necessarily want to show the loading spinner <strong>immediately</strong>. Instead, we may want to wait 100ms or so before showing it. We would also want to wait the same amount of time if <code>#match</code> gets a <strong>new</strong> input, and just keep around the old UI if the new data loads quickly.</p>
+<p>This example demonstrates that we probably want a version of <code>#match</code> that's tailored for the case of <code>AsyncData</code>.</p>
+<p><em>Roughly speaking, it would keep two copies of its input: the <code>current</code> one and the <code>next</code> one, and if the next input is <code>loading</code>, it would wait 100ms before committing it to <code>current</code>.</em></p>
+<blockquote>
+<p>💡 If we <strong>ship</strong> <code>RemoteData</code>, we will certainly want to give it the full suite of <code>fetch</code> features. However, we can define the shape of the <code>AsyncData</code> enumeration as a <strong>protocol</strong> without shipping a concrete implementation.</p>
+</blockquote>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="reactivity.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="routing.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="reactivity.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="routing.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </body>
+</html>

@@ -1,0 +1,666 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Polaris Design Sketches</title>
+        <meta name="robots" content="noindex" />
+
+
+        <!-- Custom HTML head -->
+        
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="proposals.html"><strong aria-hidden="true">1.</strong> Proposals</a></li><li class="chapter-item expanded "><a href="reactivity.html"><strong aria-hidden="true">2.</strong> Polaris Reactivity</a></li><li class="chapter-item expanded "><a href="match.html"><strong aria-hidden="true">3.</strong> #match Control Flow</a></li><li class="chapter-item expanded "><a href="routing.html"><strong aria-hidden="true">4.</strong> Routing</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Polaris Design Sketches</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="polaris-sketchwork"><a class="header" href="#polaris-sketchwork">Polaris Sketchwork</a></h1>
+<p>This is a collection of proposals and other sketches that I (@wycats) am working on fleshing out for inclusion in Polaris.</p>
+<p>In general, they attempt to flesh out and clarify the existing vision for Polaris, which I outlined in my <a href="https://www.youtube.com/watch?v=3Bj4EEoztk4&amp;t=1207s">EmberConf 2022 keynote</a>.</p>
+<p>At the moment, much of the work of Polaris is underway, and most of the features slated for Polaris have already been implemented in some form. However, there is no cohesive description of the big-picture vision of various features.</p>
+<p>In addition some of Polaris' well-established goals have implications that have not yet been described clearly. In particular, two major goals of Polaris are the unification of template and JavaScript features  and the elimination of dependencies on classic Ember features in idiomatic Polaris apps. Taken together, these goals require changes to the Ember router, which is the last remaining piece of critical Ember infrastructure that fundamentally depends upon classic features. It's also glaringly out of sync with the lifetime management story of the rest of modern Ember.</p>
+<p>Despite this implication, we don't yet have a single place that fleshes out what that <strong>means</strong>.</p>
+<p>My goal with this repository is to provide my personal understanding of the high-level design vision of Polaris, as well as my best guess at proposals that still require additional work.</p>
+<p>I plan to add more proposals over the next few weeks and months, but wanted to get the stuff I already wrote down out there in the meantime.</p>
+<p>Feel free to file issues on <a href="https://github.com/wycats/polaris-sketchwork">GitHub</a> if you have questions or thoughts!</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="ember-reactivity"><a class="header" href="#ember-reactivity">Ember Reactivity</a></h1>
+<blockquote>
+<p>Note to readers: For the most part, this design document describes the current state of the Ember.js reactivity system, as of Octane, as a way of laying the groundwork for understanding Polaris features. When this document is talking about Polaris features, it explicitly calls that out.</p>
+</blockquote>
+<h2 id="how-ember-reactivity-works"><a class="header" href="#how-ember-reactivity-works">How Ember Reactivity Works</a></h2>
+<h3 id="the-data-universe"><a class="header" href="#the-data-universe">The Data Universe</a></h3>
+<dl>
+  <dt id="data-reactive-storage">Reactive Data Cell</dt>
+  <dd>
+<p>An atomic piece of reactive storage that the app can read from or write to.</p>
+<p>In Octane, the only kind of Reactive Cell is a <code>@tracked</code> field. Polaris will also include a <code>cell</code> type to create standalone reactive storage outside of a class.</p>
+</dd>
+<dt id="data-composite">Composite Reactive Object</dt>
+  <dd>
+<p>An object that uses multiple reactive values internally. A Composite Reactive Object exposes methods to read and write to its underlying reactive values.</p>
+<p>Composite Reactive Objects are <em>Constructed</em> when they are first first created. The code that constructs a Reactive Object is called a <em>Reactive Constructor</em>.</p>
+<p>The code in a Reactive Constructor may <em>read</em> from the data universe, but it must not <em>write to</em> the data universe. <strong>However</strong>, if a <em>Reactive Constructor</em> initializes a reactive variable for the first time, it <strong>may</strong> mutate the reactive variable for the duration of the Reactive Constructor.</p>
+</dd>
+<dt id="data-universe">The Data Universe</dd>
+  <dd>The collection of all Reactive Storage.</dd>
+<dt id="data-formula">Formula</dt>
+  <dd>
+<p>Normal JavaScript functions or getters that compute values based on other reactive values. These functions do not need to be annotated, but they must not mutate the data universe.</p>
+<p>The Ember <a href="reactivity.html#output-rendering">Rendering</a> process <strong>reads</strong> from Reactive Storage and Formulas in the data universe, but <strong>must not write to it</strong>. (In Ember, Formulas used in the Rendering process are called &quot;helpers&quot;.)</p>
+<blockquote>
+<p>👍 A good rule of thumb: don't mutate anything in your getters or helpers.</p>
+</blockquote>
+</dd>
+</dl>
+<p>Polaris will include a number of built-in <a href="reactivity.html#data-composite">Composite Reactive Objects</a>: Map, Set, WeakMap, WeakSet, array and object.</p>
+<blockquote>
+<p>💡 All reactive storage built into Ember follows the <strong>Equivalence</strong> rule. This means that they are (a) annotations of storage built into JavaScript, (b) have the same behavior as the underlying JavaScript storage, and (c) behave equivalently if the annotation is removed. The annotation causes the <a href="reactivity.html#output-rendering">rendered</a> output to remain up to date when the storage is mutated, but it does not affect the behavior or timing of the data itself.</p>
+</blockquote>
+<h4 id="the-data-universe-is-always-coherent"><a class="header" href="#the-data-universe-is-always-coherent">The Data Universe is Always Coherent</a></h4>
+<p>When <em>Reactive Storage</em> is mutated, the mutation takes effect immediately. Any code that reads from the variable will see the new value.</p>
+<p>This means that the <em>Data Universe</em> <strong>is always coherent</strong>. If you make a change to a reactive variable, and you call a function that depends on the reactive variable, the function will see the new state of the reactive variable, and the value it returns will therefore be up to date.</p>
+<details id="ember-reactivity-example">
+<summary>Example</summary>
+<pre><code class="language-ts">class Person {
+  @tracked name: string;
+  @tracked location: string;
+
+  constructor(name: string, location: string) {
+    this.name = name;
+    this.location = location;
+  }
+
+  get card() {
+    return `${this.name} (${this.location})`;
+  }
+}
+
+const wycats = new Person(&quot;Yehuda&quot;, &quot;New York&quot;);
+
+wycats.card; // &quot;Yehuda (New York)&quot;
+
+wycats.name = &quot;Yehuda Katz&quot;;
+wycats.card; // &quot;Yehuda Katz (New York)&quot;
+
+wycats.location = &quot;San Francisco&quot;;
+wycats.card; // &quot;Yehuda Katz (San Francisco)&quot;
+
+wycats.location = &quot;Portland&quot;;
+wycats.card; // &quot;Yehuda Katz (Portland)&quot;
+</code></pre>
+</details>
+<h3 id="the-output"><a class="header" href="#the-output">The Output</a></h3>
+<dl>
+  <dt id="output-rendering">Rendering</dt>
+  <dd>
+<p>Ember <em>reads</em> from Reactive Variables, as well as functions and getters that depend on reactive variables, in order to create and update the DOM.</p>
+<p>Functions and getters called during Rendering are called <em>Formulas</em>. Formulas may <strong>read</strong> from the data universe, but they must not <strong>mutate</strong> the Data Universe.</p>
+</dd>
+<dt>Actions</dt>
+  <dd>
+<p>An <em>Action</em> is any code that runs inside of a browser callback, such as a click handler. Actions may freely read or mutate the Data Universe. By definition, an <em>Action</em> does not happen during <em>Rendering</em>.</p>
+</dd>
+</dl>
+<p>The constructor in the <code>Person</code> class <a href="reactivity.html#ember-reactivity-example">above</a> is a <em>Reactive Constructor</em>.</p>
+<h3 id="resources"><a class="header" href="#resources">Resources</a></h3>
+<p>A <em>Resource</em> is a user-defined <a href="reactivity.html#data-composite">Composite Reactive Object</a> with cleanup behavior. You get access to a resource's <em>value</em> by linking it to a parent object. When the parent object is destroyed, the resource is destroyed as well, which means its cleanup behavior is run.</p>
+<p>For example, a Resource might be a class that represents the current version of a document delivered over a web socket. When the connection is closed, the web socket should be closed.</p>
+<h4 id="example"><a class="header" href="#example">Example</a></h4>
+<pre><code class="language-js">import { Resource, cell } from &quot;@glimmer/reactivity&quot;;
+
+function RemoteData(url) {
+  return Resource((resource) =&gt; {
+    const value = cell({ type: &quot;loading&quot; });
+    const controller = new AbortController();
+
+    resource.on.cleanup(() =&gt; controller.abort());
+
+    fetch(url, { signal: controller.signal })
+      .then((response) =&gt; {
+        if (response.ok) {
+          return response.json();
+        } else {
+          value.current = { type: &quot;error&quot;, value: response.statusText };
+        }
+      })
+      .then((data) =&gt; {
+        value.current = { type: &quot;success&quot;, value: data };
+      });
+
+    return value;
+  });
+}
+</code></pre>
+<details>
+<summary>In TypeScript</summary>
+<pre><code class="language-ts">import { Resource, type Linkable, cell } from &quot;@glimmer/reactivity&quot;;
+
+function RemoteData&lt;T&gt;(url: string): Linkable&lt;RemoteData&lt;T&gt;&gt; {
+  return Resource((resource) =&gt; {
+    const value = cell({ type: &quot;loading&quot; });
+    const controller = new AbortController();
+
+    resource.on.cleanup(() =&gt; controller.abort());
+
+    fetch(url, { signal: controller.signal })
+      .then((response) =&gt; {
+        if (response.ok) {
+          return response.json();
+        } else {
+          value.current = { type: &quot;error&quot;, value: response.statusText };
+        }
+      })
+      .then((data) =&gt; {
+        value.current = { type: &quot;success&quot;, value: data };
+      });
+  });
+}
+
+type RemoteData&lt;T&gt; =
+  | {
+      type: &quot;loading&quot;;
+    }
+  | {
+      type: &quot;success&quot;;
+      data: T;
+    }
+  | {
+      type: &quot;error&quot;;
+      error: Error;
+    };
+</code></pre>
+</details>
+<p>In this example, the <code>RemoteData</code> function takes a URL and returns a linkable resource.</p>
+<p>The <code>Resource</code> function is similar to <code>new Promise</code> in JavaScript. It takes a callback that constructs the resource (a <a href="reactivity.html#data-composite">reactive constructor</a>).</p>
+<p>In this case, the resource's constructor uses a <a href="reactivity.html#data-reactive-storage">cell</a> to represent the current state of the resource. It uses an <a href="https://developer.mozilla.org/en-US/docs/Web/API/AbortController">AbortController</a> to make the fetch abortable, and then registers a resource cleanup handler that aborts it.</p>
+<p>It initiates the fetch, and in response to the fetch succeeding or failing, it sets the value of the cell.</p>
+<p>Finally, it returns the cell, which is the <strong>value</strong> of the resource.</p>
+<p>And this is how it's used in a component:</p>
+<pre><code class="language-js">import { use, resource } from &quot;@glimmer/reactivity&quot;;
+
+export default class UserComponent extends Component {
+  @use user = resource(() =&gt;
+    RemoteData(`https://api.example.com/users/${this.args.id}`)
+  );
+
+  &lt;template&gt;
+    {{#if (eq (user.type) &quot;loading&quot;)}}
+      Loading...
+    {{else if (eq (user.type) &quot;error&quot;)}}
+      Error: {{user.value}}
+    {{else}}
+      Hi! {{user.value.name}}
+    {{/if}}
+  &lt;/template&gt;
+}
+</code></pre>
+<details>
+<summary>With the #match Proposal</summary>
+<pre><code class="language-js">import { use, resource } from &quot;@glimmer/reactivity&quot;;
+import { RemoteData } from &quot;#lib/remote-data&quot;;
+
+export default class UserComponent extends Component {
+  @use user = resource(() =&gt;
+    RemoteData(&quot;https://api.example.com/users/${this.args.id}&quot;)
+  );
+
+  &lt;template&gt;
+    {{#match this.user}}
+      {{:when &quot;loading&quot;}}
+        Loading...
+      {{:when &quot;error&quot; as |error|}}
+        Error: {{error}}
+      {{:when &quot;success&quot; as |user|}}
+        Hi! {{user}}
+    {{/match}}
+  &lt;/template&gt;
+}
+</code></pre>
+</details>
+<h4 id="details"><a class="header" href="#details">Details</a></h4>
+<ol>
+<li>If you return a <a href="reactivity.html#data-reactive-storage">cell</a> or formula (a function with no parameters) from a resource constructor, the value of the resource is the value of the cell or return value of the formula. Otherwise, value of the resource is the return value of the resource constructor.</li>
+<li>The <code>@use</code> decorator links the resource to the instance of the object that it's used in (in this case, the component).</li>
+<li>The function passed to <code>resource()</code> is, itself, a formula. If it uses reactive values when constructing the resource, and they change, the resource will be cleaned up and re-created. (This effectively makes resources <a href="http://ember-concurrency.com/docs/task-concurrency/#restartable">restartable</a> by default).</li>
+</ol>
+<h4 id="using-resources-in-templates"><a class="header" href="#using-resources-in-templates">Using Resources in Templates</a></h4>
+<p>Resources are used in templates the way helpers are used in Octane.</p>
+<blockquote>
+<p>💡 That's because resources and helpers are <strong>the same thing</strong> in Polaris.</p>
+</blockquote>
+<pre><code class="language-ts">import { RemoteData } from &quot;#app/lib/remote-data&quot;;
+
+&lt;template&gt;
+  {{#let (RemoteData (concat &quot;https://api.example.com/users/&quot; @id)) as |data|}}
+    {{#if (eq (data.type) &quot;loading&quot;)}}
+      Loading...
+    {{else if (eq (data.type) &quot;error&quot;)}}
+      Error: {{data.value}}
+    {{else}}
+      Hi! {{data.value.name}}
+    {{/if}}
+  {{/let}}
+&lt;/template&gt;
+</code></pre>
+<details>
+<summary>With #match Proposal</summary>
+<pre><code class="language-ts">import { RemoteData } from &quot;#app/lib/remote-data&quot;;
+
+&lt;template&gt;
+  {{#let (RemoteData (concat &quot;https://api.example.com/users/&quot; @id)) as |data|}}
+    {{#match data}}
+      {{:when &quot;loading&quot;}}
+        Loading...
+      {{:when &quot;error&quot; as |error|}}
+        Error: {{error}}
+      {{:when &quot;success&quot; as |user|}}
+        Hi! {{user.name}}
+    {{/match}}
+  {{/let}}
+&lt;/template&gt;
+</code></pre>
+</details>
+<p>Two differences between using a resource in a template and using a resource in a class:</p>
+<ul>
+<li>In a class, you use <code>@use</code> to link the resource's lifetime to the lifetime of the class instance. In a template, that happens automatically.</li>
+<li>In a class, you construct the resource with <code>resource(() =&gt; ...)</code>. In a template, you don't need to wrap the call to <code>RemoteData</code>, because the template syntax already does that for you.</li>
+</ul>
+<h2 id="relationship-to-octane-features"><a class="header" href="#relationship-to-octane-features">Relationship to Octane Features</a></h2>
+<ul>
+<li>Resources are a generalization of <a href="https://emberjs.com/api/ember/2.18/classes/Helper/methods/helper?anchor=class-helper">Class Helpers</a> that can be used <a href="reactivity.html#using-resources-in-templates">in templates</a>, but also in normal JavaScript.</li>
+</ul>
+<h2 id="relationship-to-shipped-primitives"><a class="header" href="#relationship-to-shipped-primitives">Relationship to Shipped Primitives</a></h2>
+<ul>
+<li>The lifetime linking feature of resources is built on <a href="https://api.emberjs.com/ember/4.3/functions/@ember%2Fdestroyable/associateDestroyableChild">associateDestroyableChild</a>.</li>
+<li>The ability to register cleanup handlers outside of <code>willDestroy</code> is built on <a href="https://api.emberjs.com/ember/4.3/functions/@ember%2Fdestroyable/registerDestructor">registerDestructor</a>.</li>
+<li>Automatically cleaning up the resource when its arguments change is built on <a href="https://api.emberjs.com/ember/4.3/functions/@ember%2Fdestroyable/destroy">destroy</a> and <a href="https://api.emberjs.com/ember/4.3/functions/@glimmer%2Ftracking%2Fprimitives%2Fcache/createCache">createCache</a>.</li>
+</ul>
+<h2 id="relationship-to-approved-but-unshipped-primitives"><a class="header" href="#relationship-to-approved-but-unshipped-primitives">Relationship to Approved but Unshipped Primitives</a></h2>
+<ul>
+<li>Cell is built on <a href="https://github.com/emberjs/rfcs/blob/master/text/0669-tracked-storage-primitive.md">createStorage</a> (approved RFC #669). It could mostly be built on top of <code>@tracked</code>, but we need <a href="reactivity.html#data-reactive-storage">cell</a> to make the cell the value of the resource (and avoid an unnecessary <code>.current</code> in uses of resources representing a single value).</li>
+</ul>
+<p>While <a href="https://github.com/emberjs/rfcs/blob/master/text/0669-tracked-storage-primitive.md">createStorage</a> is not currently shipped in Ember, a high-fidelity <a href="https://github.com/ember-polyfills/ember-tracked-storage-polyfill">polyfill</a> exists.</p>
+<p>The current implementation of the reactivity system in Ember has a notion of description that can be used in debugging. This is a good idea, and we should align it with the design of <a href="reactivity.html#data-composite">composite</a> reactive objects.</p>
+<div style="break-before: page; page-break-before: always;"></div><p>The <code>#match</code> feature makes it possible to match an instance of an enumeration (an object with a string <code>type</code> property, and a <code>value</code> property).</p>
+<p>Let's say we have a <code>Contact</code> type, which can either be a <code>telephone</code> type or an <code>email</code> type. In our template, we'd like to match the contact, and use a component based on what type of contact it is.</p>
+<pre><code class="language-js">import EmailContact from &quot;./EmailContact&quot;;
+import TelephoneContact from &quot;./TelephoneContact&quot;;
+import { Component } from &quot;@glimmer/component&quot;;
+
+export default class ContactComponent extends Component {
+  &lt;template&gt;
+    {{#match @contact}}
+      {{:when &quot;telephone&quot; as |number|}}
+        &lt;TelephoneContact @number={{number}} /&gt;
+      {{:when &quot;email&quot; as |email|}}
+        &lt;EmailContact @email={{email}} /&gt;
+    {{/match}}
+  &lt;/template&gt;
+}
+</code></pre>
+<p>In TypeScript:</p>
+<pre><code class="language-ts">import EmailContact from &quot;./EmailContact&quot;;
+import TelephoneContact from &quot;./TelephoneContact&quot;;
+import { Component } from &quot;@glimmer/component&quot;;
+
+type Contact =
+  | {
+      type: &quot;telephone&quot;;
+      value: string;
+    }
+  | {
+      type: &quot;email&quot;;
+      value: string;
+    };
+
+interface ContactSignature {
+  Args: {
+    contact: Contact;
+  };
+}
+
+export default class ContactComponent extends Component&lt;{
+  Args: { contact: Contact };
+}&gt; {
+  &lt;template&gt;
+    {{#match @contact}}
+    {{:telephone as |number|}}
+      &lt;TelephoneContact @number={{number}} /&gt;
+    {{:email as |email|}}
+      &lt;EmailContact @email={{email}} /&gt;
+    {{/match}}
+  &lt;/template&gt;
+}
+</code></pre>
+<h3 id="the-default-clause"><a class="header" href="#the-default-clause">The Default Clause</a></h3>
+<p>A <code>#match</code> block can have an <code>else</code> clause. If the <code>#match</code> block is not matched, the <code>else</code> clause is used.</p>
+<h2 id="curly-components-get-named-blocks"><a class="header" href="#curly-components-get-named-blocks">Curly Components Get Named Blocks</a></h2>
+<p>The initial design of the <a href="https://emberjs.github.io/rfcs/0460-yieldable-named-blocks.html">named blocks</a> feature added named blocks to angle-bracket components, but not to curly components (&quot;This RFC does not propose an extension to curly syntax, although a future extension to curly syntax is expected.&quot;)</p>
+<p>The <code>#match</code> syntax is based upon extending named blocks to curly syntax.</p>
+<p>Since angle bracket components landed in Ember, curly components <em>that take a block</em> exist philosophically to model control flow. Handlebars already has an <code>else</code> syntax, and a lot of control flow can be shoehorned into the notion of <code>else</code>. However, <code>#match</code> illustrates that general-purpose control flow cannot always be modelled as a pair of &quot;default&quot; and &quot;else&quot; blocks.</p>
+<p>The semantics of named blocks in curly components are identical to the semantics of named blocks in angle bracket components.</p>
+<p>The syntax of named blocks in curly components aligns with the <code>else</code> syntax, and do not require a closing tag.</p>
+<h3 id="optional-else-clause"><a class="header" href="#optional-else-clause">Optional <code>else</code> Clause</a></h3>
+<p>Named Blocks in curly components can have an optional <code>else</code> clause. This is useful to allow a control-flow construct (like <code>#match</code>) to take an alternative while still allowing the entire space of block names to be used.</p>
+<pre><code class="language-hbs">{{#match @contact}}
+{{:telephone as |number|}}
+  &lt;TelephoneContact @number={{number}} /&gt;
+{{:email as |email|}}
+  &lt;EmailContact @email={{email}} /&gt;
+{{else as |value|}}
+  &lt;p&gt;{{value}}&lt;/p&gt;
+{{/match}}
+</code></pre>
+<h2 id="the-enumeration-format"><a class="header" href="#the-enumeration-format">The Enumeration Format</a></h2>
+<p>The <code>#match</code> syntax takes an instance of an &quot;enumeration&quot; as its argument, and yields a block based on the type of the enumeration.</p>
+<p>An enumeration is an object with:</p>
+<ul>
+<li>a <code>type</code> property, whose value is a string</li>
+<li>an optional <code>value</code> property, with any value</li>
+</ul>
+<h2 id="typescript-support"><a class="header" href="#typescript-support">TypeScript Support</a></h2>
+<p>This feature is based on TypeScript's <a href="https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes-func.html#discriminated-unions">discriminated union</a> feature.</p>
+<p>This means that the <code>#match</code> syntax can be trivially translated to TypeScript.</p>
+<p>Template Syntax:</p>
+<pre><code class="language-hbs">{{#match @contact}}
+  {{:telephone as |number|}}
+    &lt;TelephoneContact @number={{number}} /&gt;
+  {{:email as |email|}}
+    &lt;EmailContact @email={{email}} /&gt;
+{{/match}}
+</code></pre>
+<p>Translated to TypeScript:</p>
+<pre><code class="language-ts">switch (this.args.contact.type) {
+  case &quot;telephone&quot;:
+    TelephoneContact({ number: this.args.contact.value });
+    break;
+  case &quot;email&quot;:
+    EmailContact({ email: this.args.contact.value });
+    break;
+}
+</code></pre>
+<p>When translated this way, the values yielded to the blocks get the correct, narrowed type by TypeScript.</p>
+<h2 id="motivation-asynchronous-data"><a class="header" href="#motivation-asynchronous-data">Motivation: Asynchronous Data</a></h2>
+<p>In the design of Polaris features, we frequently want to model the state of asynchronous data as a reactive data structure.</p>
+<p>This allows <a href="./reactivity.html">resources</a> to use asynchronous loading internally, and expose their status as a reactive value.</p>
+<p>We want to model this as an enumeration:</p>
+<pre><code class="language-ts">type AsyncData&lt;T&gt; =
+  | {
+      type: &quot;loading&quot;;
+    }
+  | {
+      type: &quot;success&quot;;
+      value: T;
+    }
+  | {
+      type: &quot;error&quot;;
+      value: unknown;
+    };
+</code></pre>
+<p>It is, of course, possible to use <code>AsyncData</code> in a template by using <code>#if</code>:</p>
+<pre><code class="language-hbs">{{#if (eq @data.type &quot;loading&quot;)}}
+  &lt;p&gt;Loading...&lt;/p&gt;
+{{else if (eq @data.type &quot;success&quot;)}}
+  &lt;p&gt;Hello {{@data.value.name}}&lt;/p&gt;
+{{else if (eq @data.type &quot;error&quot;)}}
+  &lt;p&gt;Something went wrong: {{@data.value}}&lt;/p&gt;
+{{/if}}
+</code></pre>
+<blockquote>
+<p>💡 This would even narrow correctly in TypeScript, provided that the <code>eq</code> helper is translated to <code>===</code>.</p>
+</blockquote>
+<p>However, this is not ergonomically ideal, in part because it doesn't make it very obvious that <code>@data.value</code> <strong>depends on</strong> <code>@data.type</code>.</p>
+<p>The <code>#match</code> syntax makes this more ergonomic and clearer:</p>
+<pre><code class="language-hbs">{{#match @data}}
+{{:loading}}
+  Loading...
+{{:success as |user|}}
+  &lt;p&gt;Hello {{user.name}}&lt;/p&gt;
+{{:error as |error|}}
+  &lt;p&gt;Something went wrong: {{error}}&lt;/p&gt;
+{{/match}}
+</code></pre>
+<h3 id="debouncing"><a class="header" href="#debouncing">Debouncing</a></h3>
+<p>In the [router] design, we'd like to model the existing model hook in the <code>Route</code> class as a function that returns a <code>Resource&lt;AsyncData&gt;</code>.</p>
+<p>You could specify your loading and error states via <code>#match</code>.</p>
+<h4 id="a-route-today"><a class="header" href="#a-route-today">A Route Today</a></h4>
+<pre><code class="language-ts">import { Route } from &quot;@ember/routing&quot;;
+
+export default class extends Route {
+  async model({ user_id }: { user_id: string }) {
+    const data = await fetch(`/api/users/${user_id}`);
+    return data.json();
+  }
+}
+</code></pre>
+<p>Loading:</p>
+<pre><code class="language-hbs">&lt;Loading /&gt;
+</code></pre>
+<p>Error:</p>
+<pre><code class="language-hbs">Something went wrong...
+</code></pre>
+<p>Loaded:</p>
+<pre><code class="language-hbs">&lt;h1&gt;{{@model.name}}&lt;/h1&gt;
+
+&lt;div class=&quot;user-details&quot;&gt;
+  &lt;p&gt;{{@model.email}}&lt;/p&gt;
+  &lt;p&gt;{{@model.phone}}&lt;/p&gt;
+&lt;/div&gt;
+</code></pre>
+<h4 id="a-polaris-route"><a class="header" href="#a-polaris-route">A Polaris Route</a></h4>
+<pre><code class="language-ts">import { Route } from &quot;@ember/routing&quot;;
+
+export default class extends Route {
+  @use model = resource(() =&gt; RemoteData(`/api/users/${this.params.user_id}`));
+
+  &lt;template&gt;
+    {{#match this.model}}
+    {{:loading}}
+      Loading...
+    {{:error as |error|}}
+      &lt;p&gt;Something went wrong: {{error}}&lt;/p&gt;
+    {{:success as |user|}}
+      &lt;h1&gt;{{user.name}}&lt;/h1&gt;
+
+      &lt;div class=&quot;user-details&quot;&gt;
+        &lt;p&gt;{{user.email}}&lt;/p&gt;
+        &lt;p&gt;{{user.phone}}&lt;/p&gt;
+      &lt;/div&gt;
+    {{/match}}
+  &lt;/template&gt;
+}
+</code></pre>
+<p>In this design:</p>
+<ul>
+<li>The route is a component that gets <code>params</code> from the router.</li>
+<li>The route is not long-lived. When the user navigates away from the route, the
+component is destroyed, like any other route.</li>
+<li>The &quot;model hook&quot; is no longer special. It's simply a resource.</li>
+<li>If the user navigates away from the route, and the <code>RemoteData</code> is still
+active, it is torn down. It was <strong>possible</strong> to model this with the model
+hook, but it basically falls out of making the model a resource and having an
+idiomatic <code>RemoteData</code>.</li>
+</ul>
+<p>In this example, we don't necessarily want to show the loading spinner <strong>immediately</strong>. Instead, we may want to wait 100ms or so before showing it. We would also want to wait the same amount of time if <code>#match</code> gets a <strong>new</strong> input, and just keep around the old UI if the new data loads quickly.</p>
+<p>This example demonstrates that we probably want a version of <code>#match</code> that's tailored for the case of <code>AsyncData</code>.</p>
+<p><em>Roughly speaking, it would keep two copies of its input: the <code>current</code> one and the <code>next</code> one, and if the next input is <code>loading</code>, it would wait 100ms before committing it to <code>current</code>.</em></p>
+<blockquote>
+<p>💡 If we <strong>ship</strong> <code>RemoteData</code>, we will certainly want to give it the full suite of <code>fetch</code> features. However, we can define the shape of the <code>AsyncData</code> enumeration as a <strong>protocol</strong> without shipping a concrete implementation.</p>
+</blockquote>
+<div style="break-before: page; page-break-before: always;"></div><p>This document is 🚧🚧🚧🚧.</p>
+<p>At a 20,000 foot view, the idea is to turn the route into a component that gets <code>params</code> from the router, turn the <code>model</code> hook into a resource that returns <code>AsyncData</code>, and turn the substate feature into a <code>#match</code> on that data.</p>
+<p>This document will soon be updated to describe the routing proposal in detail.</p>
+<p>In the meantime, resources are described in detail in the <a href="./reactivity.html">reactivity</a> section. <code>#match</code> is described in the <a href="./match.html">match</a> proposal, and the end of that proposal has a detailed sketch of the basic idea of <code>AsyncData</code> and how it could be used in routing.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+
+            </nav>
+
+        </div>
+
+
+
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+
+        <script type="text/javascript">
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+
+    </body>
+</html>
