@@ -3,8 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Page not found - Polaris Design Sketches</title>
-        <base href="/">
+        <title>Appendix: Optional Second Phase - Polaris Design Sketches</title>
 
 
         <!-- Custom HTML head -->
@@ -14,21 +13,21 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
 
-        <link rel="icon" href="favicon.svg">
-        <link rel="shortcut icon" href="favicon.png">
-        <link rel="stylesheet" href="css/variables.css">
-        <link rel="stylesheet" href="css/general.css">
-        <link rel="stylesheet" href="css/chrome.css">
-        <link rel="stylesheet" href="css/print.css" media="print">
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
-        <link rel="stylesheet" href="fonts/fonts.css">
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" href="highlight.css">
-        <link rel="stylesheet" href="tomorrow-night.css">
-        <link rel="stylesheet" href="ayu-highlight.css">
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
 
@@ -36,7 +35,7 @@
     <body>
         <!-- Provide site root to javascript -->
         <script type="text/javascript">
-            var path_to_root = "";
+            var path_to_root = "../";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
@@ -82,7 +81,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="proposals.html"><strong aria-hidden="true">1.</strong> Polaris Sketchwork</a></li><li class="chapter-item expanded "><a href="reactivity.html"><strong aria-hidden="true">2.</strong> Polaris Reactivity</a></li><li class="chapter-item expanded "><a href="match.html"><strong aria-hidden="true">3.</strong> #match Control Flow</a></li><li class="chapter-item expanded "><a href="routing.html"><strong aria-hidden="true">4.</strong> Routing</a></li><li class="chapter-item expanded "><a href="content-tag.html"><strong aria-hidden="true">5.</strong> Content Tag</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="content-tag/simplified-javascript-lexer.html"><strong aria-hidden="true">5.1.</strong> Appendix: Simplified JavaScript Lexer</a></li><li class="chapter-item expanded "><a href="content-tag/second-phase-compiler.html"><strong aria-hidden="true">5.2.</strong> Appendix: Optional Second Phase</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../proposals.html"><strong aria-hidden="true">1.</strong> Polaris Sketchwork</a></li><li class="chapter-item expanded "><a href="../reactivity.html"><strong aria-hidden="true">2.</strong> Polaris Reactivity</a></li><li class="chapter-item expanded "><a href="../match.html"><strong aria-hidden="true">3.</strong> #match Control Flow</a></li><li class="chapter-item expanded "><a href="../routing.html"><strong aria-hidden="true">4.</strong> Routing</a></li><li class="chapter-item expanded "><a href="../content-tag.html"><strong aria-hidden="true">5.</strong> Content Tag</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../content-tag/simplified-javascript-lexer.html"><strong aria-hidden="true">5.1.</strong> Appendix: Simplified JavaScript Lexer</a></li><li class="chapter-item expanded "><a href="../content-tag/second-phase-compiler.html" class="active"><strong aria-hidden="true">5.2.</strong> Appendix: Optional Second Phase</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -114,7 +113,7 @@
                     <h1 class="menu-title">Polaris Design Sketches</h1>
 
                     <div class="right-buttons">
-                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
 
@@ -143,13 +142,80 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="document-not-found-404"><a class="header" href="#document-not-found-404">Document not found (404)</a></h1>
-<p>This URL is invalid, sorry. Please use the navigation bar or search to continue.</p>
+                        <h2 id="optional-second-phase"><a class="header" href="#optional-second-phase">Optional Second Phase</a></h2>
+<p>The first phase of the content tags specification translates the content tag syntax to JavaScript. This is a very useful input into downstream tools, many of which already exist.</p>
+<p>For example, the <a href="https://www.npmjs.com/package/graphql-tag">graphql-tag</a> library is a JavaScript library that can be used to generate a GraphQL query from a tagged template string.</p>
+<pre><code class="language-js">import gql from 'graphql-tag';
+
+const query = gql`
+  {
+    user(id: 5) {
+      firstName
+      lastName
+    }
+  }
+`
+</code></pre>
+<p>When using the content tag preprocessor, you could write:</p>
+<pre><code class="language-gts">import gql from 'graphql-tag';
+
+const query =
+  &lt;gql&gt;
+    {
+      user(id: 5) {
+        firstName
+        lastName
+      }
+    }
+  &lt;/gql&gt;
+</code></pre>
+<p>Without any additional steps, this would be translated to the original graphql-tag syntax, and everything would work as expected.</p>
+<p>However, you may want to use the content tag preprocessor as the first step in a build pipeline to generate JavaScript code.</p>
+<p>For example, consider the <code>&lt;template&gt;</code> tag feature in Ember Polaris:</p>
+<pre><code class="language-gts">import { template } from '@glimmer/template';
+
+const name = &quot;Godfrey&quot;;
+
+&lt;template&gt;
+  &lt;div&gt;
+    &lt;h1&gt;Hello, {{name}}&lt;/h1&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+</code></pre>
+<p>The content tag preprocessor would convert this to:</p>
+<pre><code class="language-gts">import { template } from '@glimmer/template';
+
+const name = &quot;Godfrey&quot;;
+
+export default template`
+  &lt;div&gt;
+    &lt;h1&gt;Hello, {{name}}&lt;/h1&gt;
+  &lt;/div&gt;
+`;
+</code></pre>
+<p>But the template still references <code>name</code>, which is not available at runtime. To make this work, Glimmer templates need a second phase of compilation, which compiles to:</p>
+<pre><code class="language-js">import { template } from '@glimmer/template';
+
+const name = &quot;Godfrey&quot;;
+
+export default template(&quot;&lt;div&gt;\\n  &lt;h1&gt;Hello, {{name}}&lt;/h1&gt;\\n&lt;/div&gt;&quot;, () =&gt; ({ name }));
+</code></pre>
+<p>It is, of course, possible to write a second phase of compilation that works with the output of the content tag preprocessor using something like Babel. That's the point of the design of the content tag preprocessor: to translate the custom syntax into something that can be further translated using vanilla JavaScript build pipelines.</p>
+<p>That said, in order to build the second phase, you would need to:</p>
+<ul>
+<li>Make sure to carefully realign output source maps</li>
+<li>Do the same steps for eslint and TypeScript, as well as any other tools that depend on rich static analysis.</li>
+</ul>
+<p>To make it easier to build this sort of tool, we intend to provide a <a href="content-tag/second-phase-compiler.html">second phase compiler</a> utility that helps translate the output of the content tag preprocessor into runtime JavaScript.</p>
+<p>The design of the second phase compiler will be based on our implementation of such a tool for the <code>&lt;template&gt;</code> tag feature in Ember Polaris.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../content-tag/simplified-javascript-lexer.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
 
 
                         <div style="clear: both"></div>
@@ -158,6 +224,9 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../content-tag/simplified-javascript-lexer.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
 
             </nav>
 
@@ -171,13 +240,13 @@
         </script>
 
 
-        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
 
-        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
-        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
 
         <!-- Custom JS scripts -->
 
