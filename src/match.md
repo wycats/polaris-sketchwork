@@ -2,7 +2,7 @@ The `#match` feature makes it possible to match an instance of an enumeration (a
 
 Let's say we have a `Contact` type, which can either be a `telephone` type or an `email` type. In our template, we'd like to match the contact, and use a component based on what type of contact it is.
 
-```js
+```gjs
 import EmailContact from "./EmailContact";
 import TelephoneContact from "./TelephoneContact";
 import { Component } from "@glimmer/component";
@@ -21,7 +21,7 @@ export default class ContactComponent extends Component {
 
 In TypeScript:
 
-```ts
+```gts
 import EmailContact from "./EmailContact";
 import TelephoneContact from "./TelephoneContact";
 import { Component } from "@glimmer/component";
@@ -78,7 +78,7 @@ The syntax of named blocks in curly components aligns with the `else` syntax, an
 
 Named Blocks in curly components can have an optional `else` clause. This is useful to allow a control-flow construct (like `#match`) to take an alternative while still allowing the entire space of block names to be used.
 
-```hbs
+```gbs
 {{#match @contact}}
 {{:telephone as |number|}}
   <TelephoneContact @number={{number}} />
@@ -106,7 +106,7 @@ This means that the `#match` syntax can be trivially translated to TypeScript.
 
 Template Syntax:
 
-```hbs
+```gbs
 {{#match @contact}}
   {{:telephone as |number|}}
     <TelephoneContact @number={{number}} />
@@ -155,7 +155,7 @@ type AsyncData<T> =
 
 It is, of course, possible to use `AsyncData` in a template by using `#if`:
 
-```hbs
+```gbs
 {{#if (eq @data.type "loading")}}
   <p>Loading...</p>
 {{else if (eq @data.type "success")}}
@@ -171,7 +171,7 @@ However, this is not ergonomically ideal, in part because it doesn't make it ver
 
 The `#match` syntax makes this more ergonomic and clearer:
 
-```hbs
+```gbs
 {{#match @data}}
 {{:loading}}
   Loading...
@@ -215,7 +215,7 @@ Something went wrong...
 
 Loaded:
 
-```hbs
+```gbs
 <h1>{{@model.name}}</h1>
 
 <div class="user-details">
@@ -226,7 +226,7 @@ Loaded:
 
 #### A Polaris Route
 
-```ts
+```gts
 import { Route } from "@ember/routing";
 
 export default class extends Route {

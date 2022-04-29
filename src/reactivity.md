@@ -36,8 +36,12 @@ The code in a Reactive Constructor may _read_ from the data universe, but it mus
 
   </dd>
 
-  <dt id="data-universe">The Data Universe</dd>
-  <dd>The collection of all Reactive Storage.</dd>
+  <dt id="data-universe">The Data Universe</dt>
+  <dd>
+  
+The collection of all Reactive Storage.
+  
+  </dd>
 
   <dt id="data-formula">Formula</dt>
   <dd>
@@ -217,13 +221,12 @@ Finally, it returns the cell, which is the **value** of the resource.
 
 And this is how it's used in a component:
 
-```js
+```gjs
 import { use, resource } from "@glimmer/reactivity";
 
 export default class UserComponent extends Component {
-  @use user = resource(() =>
-    RemoteData(`https://api.example.com/users/${this.args.id}`)
-  );
+  @use user = () =>
+    RemoteData(`https://api.example.com/users/${this.args.id}`);
 
   <template>
     {{#if (eq (user.type) "loading")}}
@@ -241,14 +244,13 @@ export default class UserComponent extends Component {
 
 <summary>With the #match Proposal</summary>
 
-```js
+```gjs
 import { use, resource } from "@glimmer/reactivity";
 import { RemoteData } from "#lib/remote-data";
 
 export default class UserComponent extends Component {
-  @use user = resource(() =>
-    RemoteData("https://api.example.com/users/${this.args.id}")
-  );
+  @use user = () =>
+    RemoteData("https://api.example.com/users/${this.args.id}");
 
   <template>
     {{#match this.user}}
@@ -283,7 +285,7 @@ Resources are used in templates the way helpers are used in Octane.
 
 > 💡 That's because resources and helpers are **the same thing** in Polaris.
 
-```ts
+```gjs
 import { RemoteData } from "#app/lib/remote-data";
 
 <template>
@@ -303,7 +305,7 @@ import { RemoteData } from "#app/lib/remote-data";
 
 <summary>With #match Proposal</summary>
 
-```ts
+```gjs
 import { RemoteData } from "#app/lib/remote-data";
 
 <template>
