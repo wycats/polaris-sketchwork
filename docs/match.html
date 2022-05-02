@@ -4,10 +4,9 @@
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
         <title>#match Control Flow - Polaris Design Sketches</title>
-
-
         <!-- Custom HTML head -->
         
+
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -19,18 +18,16 @@
         <link rel="stylesheet" href="css/general.css">
         <link rel="stylesheet" href="css/chrome.css">
         <link rel="stylesheet" href="css/print.css" media="print">
-
         <!-- Fonts -->
         <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
         <link rel="stylesheet" href="fonts/fonts.css">
-
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="highlight.css">
         <link rel="stylesheet" href="tomorrow-night.css">
         <link rel="stylesheet" href="ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
-
+        <link rel="stylesheet" href="theme/custom.css">
     </head>
     <body>
         <!-- Provide site root to javascript -->
@@ -89,7 +86,8 @@
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                                <div id="menu-bar-hover-placeholder"></div>
+                
+                <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky bordered">
                     <div class="left-buttons">
                         <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
@@ -98,7 +96,7 @@
                         <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
                             <i class="fa fa-paint-brush"></i>
                         </button>
-                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                        <ul id="theme-list" hidden class="theme-popup" aria-label="Themes" role="menu">
                             <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
@@ -116,7 +114,6 @@
                         <a href="print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
-
                     </div>
                 </div>
 
@@ -130,7 +127,6 @@
                         </ul>
                     </div>
                 </div>
-
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
                 <script type="text/javascript">
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
@@ -144,7 +140,7 @@
                     <main>
                         <p>The <code>#match</code> feature makes it possible to match an instance of an enumeration (an object with a string <code>type</code> property, and a <code>value</code> property).</p>
 <p>Let's say we have a <code>Contact</code> type, which can either be a <code>telephone</code> type or an <code>email</code> type. In our template, we'd like to match the contact, and use a component based on what type of contact it is.</p>
-<pre><code class="language-js">import EmailContact from &quot;./EmailContact&quot;;
+<pre><code class="language-gjs">import EmailContact from &quot;./EmailContact&quot;;
 import TelephoneContact from &quot;./TelephoneContact&quot;;
 import { Component } from &quot;@glimmer/component&quot;;
 
@@ -160,7 +156,7 @@ export default class ContactComponent extends Component {
 }
 </code></pre>
 <p>In TypeScript:</p>
-<pre><code class="language-ts">import EmailContact from &quot;./EmailContact&quot;;
+<pre><code class="language-gts">import EmailContact from &quot;./EmailContact&quot;;
 import TelephoneContact from &quot;./TelephoneContact&quot;;
 import { Component } from &quot;@glimmer/component&quot;;
 
@@ -203,7 +199,7 @@ export default class ContactComponent extends Component&lt;{
 <p>The syntax of named blocks in curly components aligns with the <code>else</code> syntax, and do not require a closing tag.</p>
 <h3 id="optional-else-clause"><a class="header" href="#optional-else-clause">Optional <code>else</code> Clause</a></h3>
 <p>Named Blocks in curly components can have an optional <code>else</code> clause. This is useful to allow a control-flow construct (like <code>#match</code>) to take an alternative while still allowing the entire space of block names to be used.</p>
-<pre><code class="language-hbs">{{#match @contact}}
+<pre><code class="language-gbs">{{#match @contact}}
 {{:telephone as |number|}}
   &lt;TelephoneContact @number={{number}} /&gt;
 {{:email as |email|}}
@@ -223,7 +219,7 @@ export default class ContactComponent extends Component&lt;{
 <p>This feature is based on TypeScript's <a href="https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes-func.html#discriminated-unions">discriminated union</a> feature.</p>
 <p>This means that the <code>#match</code> syntax can be trivially translated to TypeScript.</p>
 <p>Template Syntax:</p>
-<pre><code class="language-hbs">{{#match @contact}}
+<pre><code class="language-gbs">{{#match @contact}}
   {{:telephone as |number|}}
     &lt;TelephoneContact @number={{number}} /&gt;
   {{:email as |email|}}
@@ -259,7 +255,7 @@ export default class ContactComponent extends Component&lt;{
     };
 </code></pre>
 <p>It is, of course, possible to use <code>AsyncData</code> in a template by using <code>#if</code>:</p>
-<pre><code class="language-hbs">{{#if (eq @data.type &quot;loading&quot;)}}
+<pre><code class="language-gbs">{{#if (eq @data.type &quot;loading&quot;)}}
   &lt;p&gt;Loading...&lt;/p&gt;
 {{else if (eq @data.type &quot;success&quot;)}}
   &lt;p&gt;Hello {{@data.value.name}}&lt;/p&gt;
@@ -272,7 +268,7 @@ export default class ContactComponent extends Component&lt;{
 </blockquote>
 <p>However, this is not ergonomically ideal, in part because it doesn't make it very obvious that <code>@data.value</code> <strong>depends on</strong> <code>@data.type</code>.</p>
 <p>The <code>#match</code> syntax makes this more ergonomic and clearer:</p>
-<pre><code class="language-hbs">{{#match @data}}
+<pre><code class="language-gbs">{{#match @data}}
 {{:loading}}
   Loading...
 {{:success as |user|}}
@@ -301,7 +297,7 @@ export default class extends Route {
 <pre><code class="language-hbs">Something went wrong...
 </code></pre>
 <p>Loaded:</p>
-<pre><code class="language-hbs">&lt;h1&gt;{{@model.name}}&lt;/h1&gt;
+<pre><code class="language-gbs">&lt;h1&gt;{{@model.name}}&lt;/h1&gt;
 
 &lt;div class=&quot;user-details&quot;&gt;
   &lt;p&gt;{{@model.email}}&lt;/p&gt;
@@ -309,7 +305,7 @@ export default class extends Route {
 &lt;/div&gt;
 </code></pre>
 <h4 id="a-polaris-route"><a class="header" href="#a-polaris-route">A Polaris Route</a></h4>
-<pre><code class="language-ts">import { Route } from &quot;@ember/routing&quot;;
+<pre><code class="language-gts">import { Route } from &quot;@ember/routing&quot;;
 
 export default class extends Route {
   @use model = resource(() =&gt; RemoteData(`/api/users/${this.params.user_id}`));
@@ -356,11 +352,9 @@ idiomatic <code>RemoteData</code>.</li>
                             <a rel="prev" href="reactivity.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
-
                             <a rel="next" href="routing.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
-
                         <div style="clear: both"></div>
                     </nav>
                 </div>
@@ -370,7 +364,6 @@ idiomatic <code>RemoteData</code>.</li>
                     <a rel="prev" href="reactivity.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
-
                     <a rel="next" href="routing.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
@@ -378,24 +371,16 @@ idiomatic <code>RemoteData</code>.</li>
 
         </div>
 
-
-
-
         <script type="text/javascript">
             window.playground_copyable = true;
         </script>
-
-
         <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
-
         <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
-        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+        <script type="module" src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script type="module" src="book.js" type="text/javascript" charset="utf-8"></script>
 
         <!-- Custom JS scripts -->
-
-
     </body>
 </html>

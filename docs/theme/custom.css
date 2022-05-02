@@ -1,0 +1,48 @@
+pre {
+  border: 1px solid var(--quote-border);
+  border-radius: 6px;
+}
+
+pre > code.hljs {
+  background-color: var(--quote-bg);
+}
+
+dt {
+  font-style: italic;
+  font-weight: 600;
+}
+
+dt::after {
+  content: " ::";
+}
+
+dd {
+  margin-inline-start: 2ex;
+  color: var(--searchresults-header-fg);
+}
+
+dd > p:first-child {
+  margin-block-start: 0.5em;
+}
+
+dd blockquote {
+  background-color: var(--searchbar-bg);
+}
+
+:not(pre) > code.hljs {
+  background-color: var(--quote-bg);
+  line-height: 1.5;
+  word-wrap: break-word;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+.theme-popup {
+  display: initial;
+}
+/*
+.theme-popup:not(.show) {
+  display: none;
+} */
